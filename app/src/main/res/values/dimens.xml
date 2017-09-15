@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_padding">16dp</dimen>
+    <dimen name="main_small_padding">8dp</dimen>
+    <dimen name="bottom_view_height">32dp</dimen>
+    <dimen name="top_view_height">64dp</dimen>
+    <dimen name="title_height">24dp</dimen>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="preview_text">Simple API to retrieve the lyrics of a song. Just enter the names of artist and song to specific fields below </string>
+    <string name="app_name">LyricsFinder</string>
+    <string name="artist_name">Artist name:</string>
+    <string name="song_name">Song name:</string>
+    <string name="afterwords">powered by @lyrics.ovh</string>
+    <string name="search">Search</string>
+    <string name="lyrics_not_found">Found nothing</string>
+</resources>
