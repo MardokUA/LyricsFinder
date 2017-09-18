@@ -24,6 +24,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -31,6 +32,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
 
     public static final String CURRENT_LYRIC = "current_lyric";
+    private static final String TAG = MainActivity.class.getName();
 
     private Disposable mDisposable;
 
@@ -81,54 +83,48 @@ public class MainActivity extends AppCompatActivity {
 
     private Observable<String[]> createSearchObserver() {
         return Observable.create((ObservableOnSubscribe<String[]>) emitter -> mSearchButton.setOnClickListener(view -> {
-            showProgress();
-            hideKeyBoard();
+            prepareForSearching();
             String artistName = mArtistName.getText().toString().trim();
             String songName = mSongName.getText().toString().trim();
             emitter.onNext(new String[]{artistName, songName});
         })).debounce(1000, TimeUnit.MILLISECONDS);
     }
 
-    private Consumer<SongLyric> mLyricResponse = songLyric -> {
-        hideProgress();
-        mSongLyric.setText(songLyric.getSongLyric());
-        mCurrentSongLyric = mSongLyric.getText().toString();
-
-    };
-    private Consumer<Throwable> mLyricOnError = error -> {
-        hideProgress();
-        mSongLyric.setText(R.string.lyrics_not_found);
-        mCurrentSongLyric = mSongLyric.getText().toString();
-    };
-
-    private Observer<String[]> mSongLyricObserver = new Observer<String[]>() {
-        @Override
-        public void onSubscribe(Disposable d) {
+    private void prepareForSearching() {
+        changeProgressState(true);
+        hideKeyBoard();
+        if (!mSongLyric.getText().toString().isEmpty()) {
+            mSongLyric.setText(null);
         }
-
-        @Override
-        public void onNext(String[] strings) {
-            Observable<SongLyric> songFinder = ApiFactory.getApi().findLyric(strings[0], strings[1]);
-            mDisposable = songFinder
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(mLyricResponse, mLyricOnError);
-        }
-
-        @Override
-        public void onError(Throwable e) {
-        }
-
-        @Override
-        public void onComplete() {
-        }
-    };
-
-    private void showProgress() {
-        mProgress.setVisibility(View.VISIBLE);
     }
 
-    private void hideProgress() {
-        mProgress.setVisibility(View.GONE);
+    private Consumer<String[]> mSongLyricObserver = strings -> startSearchingEngine(strings);
+
+    private void startSearchingEngine(String[] strings) {
+        Observable<SongLyric> songFinder = ApiFactory.getApi().findLyric(strings[0], strings[1]);
+        mDisposable = songFinder
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(mLyricResponse, mLyricOnError);
+    }
+
+    private Consumer<SongLyric> mLyricResponse = songLyric -> {
+        completeSearching(songLyric.getSongLyric());
+        mSongLyric.setText(songLyric.getSongLyric());
+    };
+
+    private Consumer<Throwable> mLyricOnError = error -> {
+        completeSearching(getString(R.string.lyrics_not_found));
+        mSongLyric.setText(R.string.lyrics_not_found);
+    };
+
+    private void completeSearching(String currentSongLyric) {
+        changeProgressState(false);
+        mCurrentSongLyric = currentSongLyric;
+    }
+
+    private void changeProgressState(boolean isLoading) {
+        mProgress.setVisibility(isLoading ? View.VISIBLE : View.GONE);
     }
 
     @Override
