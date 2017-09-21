@@ -40,6 +40,15 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 public class SplashActivity extends AppCompatActivity {
 
     public static final int MARSHMALLOW = Build.VERSION_CODES.M;
@@ -50,7 +59,6 @@ public class SplashActivity extends AppCompatActivity {
     public static final int ERROR_LOCKSCREEN_DISABLED = 703;
 
     public static final int PERMISSION_CODE = 10001;
-    private static final String TAG = SplashActivity.class.getName();
 
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
@@ -69,17 +77,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initViews();
-        if (isFingerPrintExist() && isNoErrorDetected()) {
-            showViews();
-            if (isPermissionGranted()) {
-                getFingerPrint();
-            } else {
-                requestPermission();
-            }
-        } else {
-            Log.e(TAG, String.valueOf(mErrorCode));
-            startMainActivity();
-        }
+
+        Observable<String> fingerPrintObservable = createFingerPrintObservable();
+        fingerPrintObservable
+                .doOnNext(s -> getFingerPrint())
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(fingerPrintApiObserver);
     }
 
     private void initViews() {
@@ -87,6 +91,51 @@ public class SplashActivity extends AppCompatActivity {
         mFingerTextMessage = findViewById(R.id.auth_message);
         mFingerImage = findViewById(R.id.fingerprint_image);
     }
+
+    private Observable<String> createFingerPrintObservable() {
+        return Observable.create((ObservableEmitter<String> emitter) -> {
+            if (isFingerPrintExist() && isNoErrorDetected()) {
+                if (isPermissionGranted()) {
+                    emitter.onNext(null);
+                } else {
+                    requestPermission();
+                }
+            } else {
+                emitter.onError(new Throwable());
+            }
+        });
+    }
+
+    private Observer<String> fingerPrintApiObserver = new Observer<String>() {
+        @Override
+        public void onSubscribe(Disposable d) {
+
+        }
+
+        @Override
+        public void onNext(String s) {
+            showViews();
+            startAuth();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            switch (mErrorCode) {
+                case ERROR_DEFICE_NOT_SUPPORT:
+                    break;
+                case ERROR_NO_FINGERPRINT_CONFIGURE:
+                    break;
+                case ERROR_LOCKSCREEN_DISABLED:
+                    break;
+            }
+            startMainActivity();
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+    };
 
     @TargetApi(Build.VERSION_CODES.M)
     private boolean isFingerPrintExist() {
@@ -125,13 +174,16 @@ public class SplashActivity extends AppCompatActivity {
         } catch (FingerprintException e) {
             e.printStackTrace();
         }
-
         if (initCipher()) {
             mCryptoObject = new FingerprintManager.CryptoObject(mCipher);
-            FingerprintHandler handler = new FingerprintHandler(this);
-            handler.setListener(() -> startMainActivity());
-            handler.startAuth(mFingerprintManager, mCryptoObject);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void startAuth() {
+        FingerprintHandler handler = new FingerprintHandler(this);
+        handler.setListener(this::startMainActivity);
+        handler.startAuth(mFingerprintManager, mCryptoObject);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -183,16 +235,6 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    private void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private boolean isNoErrorDetected() {
-        return mErrorCode == 0;
-    }
-
     @TargetApi(Build.VERSION_CODES.M)
     private boolean isPermissionGranted() {
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) == PackageManager.PERMISSION_GRANTED;
@@ -216,5 +258,16 @@ public class SplashActivity extends AppCompatActivity {
         public FingerprintException(Exception e) {
             super(e);
         }
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private boolean isNoErrorDetected() {
+        return mErrorCode == 0;
     }
 }
