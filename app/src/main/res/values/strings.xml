@@ -6,4 +6,7 @@
     <string name="afterwords">powered by @lyrics.ovh</string>
     <string name="search">Search</string>
     <string name="lyrics_not_found">Found nothing</string>
+    <string name="label">Lyric Finder</string>
+    <string name="fingerprint_message">Fingerprint Authentication</string>
+    <string name="fingerprint_text">Place your finger on the Home button to verify your self</string>
 </resources>
