@@ -59,6 +59,7 @@ public class SplashActivity extends AppCompatActivity {
     public static final int ERROR_LOCKSCREEN_DISABLED = 703;
 
     public static final int PERMISSION_CODE = 10001;
+    private static final String TAG = SplashActivity.class.getName();
 
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
@@ -77,11 +78,15 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initViews();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         Observable<String> fingerPrintObservable = createFingerPrintObservable();
         fingerPrintObservable
-                .doOnNext(s -> getFingerPrint())
                 .subscribeOn(Schedulers.computation())
+                .doOnNext(s -> getFingerPrint())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(fingerPrintApiObserver);
     }
@@ -96,7 +101,7 @@ public class SplashActivity extends AppCompatActivity {
         return Observable.create((ObservableEmitter<String> emitter) -> {
             if (isFingerPrintExist() && isNoErrorDetected()) {
                 if (isPermissionGranted()) {
-                    emitter.onNext(null);
+                    emitter.onNext("");
                 } else {
                     requestPermission();
                 }
@@ -109,7 +114,7 @@ public class SplashActivity extends AppCompatActivity {
     private Observer<String> fingerPrintApiObserver = new Observer<String>() {
         @Override
         public void onSubscribe(Disposable d) {
-
+            Log.e(TAG, "on Subscribe");
         }
 
         @Override
@@ -129,11 +134,12 @@ public class SplashActivity extends AppCompatActivity {
                     break;
             }
             startMainActivity();
+            Log.e(TAG, "on error");
         }
 
         @Override
         public void onComplete() {
-
+            Log.e(TAG, "on Complete");
         }
     };
 
