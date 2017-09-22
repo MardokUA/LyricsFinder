@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
@@ -16,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -43,13 +43,11 @@ import javax.crypto.SecretKey;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class SplashActivity extends AppCompatActivity {
+public class RxSplashActivity extends AppCompatActivity {
 
     public static final int MARSHMALLOW = Build.VERSION_CODES.M;
     public static final String KEY_NAME = "androidHive";
@@ -59,13 +57,13 @@ public class SplashActivity extends AppCompatActivity {
     public static final int ERROR_LOCKSCREEN_DISABLED = 703;
 
     public static final int PERMISSION_CODE = 10001;
-    private static final String TAG = SplashActivity.class.getName();
+    private static final String TAG = RxSplashActivity.class.getName();
 
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
     private Cipher mCipher;
-    private FingerprintManager.CryptoObject mCryptoObject;
-    private FingerprintManager mFingerprintManager;
+    private FingerprintManagerCompat.CryptoObject mCryptoObject;
+    private FingerprintManagerCompat mFingerprintManager;
 
     private TextView mFingerLabelMessage;
     private TextView mFingerTextMessage;
@@ -147,19 +145,17 @@ public class SplashActivity extends AppCompatActivity {
     private boolean isFingerPrintExist() {
         if (Build.VERSION.SDK_INT >= MARSHMALLOW) {
             KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-            mFingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+            mFingerprintManager = FingerprintManagerCompat.from(this);
 
-            if (mFingerprintManager != null) {
-                //if has sensor
-                if (!mFingerprintManager.isHardwareDetected()) {
-                    mErrorCode = 701;
-                    //if has at least one fingerPrint
-                } else if (!mFingerprintManager.hasEnrolledFingerprints()) {
-                    mErrorCode = 702;
-                    // if has enabled lockscreen
-                } else if (keyguardManager != null && !keyguardManager.isKeyguardSecure()) {
-                    mErrorCode = 703;
-                }
+            //if has sensor
+            if (!mFingerprintManager.isHardwareDetected()) {
+                mErrorCode = 701;
+                //if has at least one fingerPrint
+            } else if (!mFingerprintManager.hasEnrolledFingerprints()) {
+                mErrorCode = 702;
+                // if has enabled lockscreen
+            } else if (keyguardManager != null && !keyguardManager.isKeyguardSecure()) {
+                mErrorCode = 703;
             }
             return true;
         } else {
@@ -181,7 +177,7 @@ public class SplashActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         if (initCipher()) {
-            mCryptoObject = new FingerprintManager.CryptoObject(mCipher);
+            mCryptoObject = new FingerprintManagerCompat.CryptoObject(mCipher);
         }
     }
 
@@ -189,7 +185,7 @@ public class SplashActivity extends AppCompatActivity {
     private void startAuth() {
         FingerprintHandler handler = new FingerprintHandler(this);
         handler.setListener(this::startMainActivity);
-        handler.startAuth(mFingerprintManager, mCryptoObject);
+        handler.startAuth(mCryptoObject);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -260,7 +256,7 @@ public class SplashActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.USE_FINGERPRINT}, PERMISSION_CODE);
     }
 
-    private class FingerprintException extends Exception {
+    public class FingerprintException extends Exception {
         public FingerprintException(Exception e) {
             super(e);
         }

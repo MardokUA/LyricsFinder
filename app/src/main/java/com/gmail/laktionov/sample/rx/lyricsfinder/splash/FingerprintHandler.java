@@ -1,58 +1,58 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.splash;
 
 import android.content.Context;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
-import android.os.CancellationSignal;
 import android.support.annotation.RequiresApi;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.support.v4.os.CancellationSignal;
 import android.widget.Toast;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
+public class FingerprintHandler extends FingerprintManagerCompat.AuthenticationCallback {
 
-    private AuthListener listener;
-    private CancellationSignal cancellationSignal;
-    private Context context;
+    private AuthListener mListener;
+    private CancellationSignal mCancellationSignal;
+    private Context mContext;
 
-    public FingerprintHandler(Context mContext) {
-        context = mContext;
+    public FingerprintHandler(Context context) {
+        mContext = context;
     }
 
-    public void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
-        cancellationSignal = new CancellationSignal();
-        manager.authenticate(cryptoObject, cancellationSignal, 0, this, null);
+    public void startAuth(FingerprintManagerCompat.CryptoObject cryptoObject) {
+        mCancellationSignal = new CancellationSignal();
+        FingerprintManagerCompat manager = FingerprintManagerCompat.from(mContext);
+        manager.authenticate(cryptoObject, 0, mCancellationSignal, this, null);
     }
 
     @Override
     public void onAuthenticationError(int errMsgId, CharSequence errString) {
-        Toast.makeText(context, "Authentication error\n" + errString, Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "Authentication error\n" + errString, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onAuthenticationFailed() {
-        Toast.makeText(context, "Authentication failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "Authentication failed", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-        Toast.makeText(context, "Authentication help\n" + helpString, Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "Authentication help\n" + helpString, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onAuthenticationSucceeded(
-            FingerprintManager.AuthenticationResult result) {
-        Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show();
-        if (listener != null) {
-            listener.onAuthSuccsess();
+    public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
+        super.onAuthenticationSucceeded(result);
+        Toast.makeText(mContext, "Success!", Toast.LENGTH_LONG).show();
+        if (mListener != null) {
+            mListener.onAuthSuccess();
         }
     }
 
-
     interface AuthListener {
-        void onAuthSuccsess();
+        void onAuthSuccess();
     }
 
-    public void setListener(AuthListener listener) {
-        this.listener = listener;
+    void setListener(AuthListener mListener) {
+        this.mListener = mListener;
     }
 }
