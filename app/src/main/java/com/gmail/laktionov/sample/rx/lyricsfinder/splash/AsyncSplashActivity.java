@@ -81,7 +81,7 @@ public class AsyncSplashActivity extends AppCompatActivity implements Fingerprin
 
         @Override
         protected void onProgressUpdate(Void... values) {
-            showViews();
+            SplashAnimator.startAnimation(mFingerLabelMessage, mFingerTextMessage, mFingerImage);
         }
 
         @Override

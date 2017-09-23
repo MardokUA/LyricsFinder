@@ -49,6 +49,7 @@
         android:id="@+id/auth_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/fingerprint_text"
         android:textSize="14sp"
