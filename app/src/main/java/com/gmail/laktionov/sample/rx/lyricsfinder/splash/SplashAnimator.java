@@ -2,61 +2,47 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.splash;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SplashAnimator {
+class SplashAnimator {
 
     private SplashAnimator() {
 
     }
 
-    public static void startAnimation(TextView labelView, TextView textView, ImageView fingerprintView) {
-        getLabelViewAnimation(labelView).start();
-        getFingerprintAnimation(fingerprintView).start();
-        getTextViewAnimation(textView).start();
+    static void startAnimation(TextView labelView, TextView textView, ImageView fingerprintView) {
+
+        ObjectAnimator labelAnimator = ObjectAnimator.ofFloat(labelView, View.SCALE_X, 0, labelView.getScaleX());
+        ObjectAnimator textAnimator = ObjectAnimator.ofFloat(textView, View.SCALE_X, 0, textView.getScaleX());
+        ObjectAnimator fingerptintAnimator = ObjectAnimator.ofFloat(fingerprintView, View.SCALE_X, 0, fingerprintView.getScaleX());
+
+        labelAnimator.setDuration(250);
+        textAnimator.setDuration(250);
+        fingerptintAnimator.setDuration(250);
+
+        labelAnimator.addListener(getStartAimationAdapter(labelView));
+        textAnimator.addListener(getStartAimationAdapter(textView));
+        fingerptintAnimator.addListener(getStartAimationAdapter(fingerprintView));
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(labelAnimator, fingerptintAnimator, textAnimator);
+        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animatorSet.start();
     }
 
-    private static ObjectAnimator getLabelViewAnimation(View view) {
-        ObjectAnimator positionAnimator = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0, view.getTranslationY());
-        positionAnimator.setDuration(150);
-        positionAnimator.addListener(new AnimatorListenerAdapter() {
+    private static AnimatorListenerAdapter getStartAimationAdapter(View view) {
+        return new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                view.setVisibility(View.VISIBLE);
                 super.onAnimationStart(animation);
-            }
-        });
-        return positionAnimator;
-    }
-
-    private static ObjectAnimator getFingerprintAnimation(View view) {
-        ObjectAnimator positionAnimator = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0, view.getTranslationY());
-        positionAnimator.setDuration(150);
-        positionAnimator.setStartDelay(150);
-        positionAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
                 view.setVisibility(View.VISIBLE);
-                super.onAnimationStart(animation);
             }
-        });
-        return positionAnimator;
-    }
-
-    private static ObjectAnimator getTextViewAnimation(View view) {
-        ObjectAnimator positionAnimator = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0, view.getTranslationY());
-        positionAnimator.setDuration(150);
-        positionAnimator.setStartDelay(300);
-        positionAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                view.setVisibility(View.VISIBLE);
-                super.onAnimationStart(animation);
-            }
-        });
-        return positionAnimator;
+        };
     }
 }
