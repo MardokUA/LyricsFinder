@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.splash;
+package com.gmail.laktionov.sample.rx.lyricsfinder.splash.fingerprint;
 
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
@@ -9,6 +9,8 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.NonNull;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+
+import com.gmail.laktionov.sample.rx.lyricsfinder.splash.RxSplashActivity;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;

@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.remote;
+package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.BuildConfig;
 

@@ -1,5 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.model;
-
+package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,9 +11,6 @@ public class SongLyric {
     @Expose
     @SerializedName("lyrics")
     private String mSongLyric;
-
-    public SongLyric() {
-    }
 
     public Integer getStatusCode() {
         return mStatusCode;

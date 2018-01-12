@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.splash;
+package com.gmail.laktionov.sample.rx.lyricsfinder.splash.fingerprint;
 
 import android.content.Context;
 import android.os.Build;
@@ -48,11 +48,11 @@ public class FingerprintHandler extends FingerprintManagerCompat.AuthenticationC
         }
     }
 
-    interface AuthListener {
+    public interface AuthListener {
         void onAuthSuccess();
     }
 
-    void setListener(AuthListener mListener) {
+    public void setListener(AuthListener mListener) {
         this.mListener = mListener;
     }
 }

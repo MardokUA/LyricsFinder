@@ -3,30 +3,24 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.search;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.R;
-import com.gmail.laktionov.sample.rx.lyricsfinder.model.SongLyric;
-import com.gmail.laktionov.sample.rx.lyricsfinder.remote.ApiFactory;
+import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model.SongLyric;
+import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.ApiFactory;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {

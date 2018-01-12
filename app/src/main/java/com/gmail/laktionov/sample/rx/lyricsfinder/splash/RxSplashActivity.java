@@ -1,6 +1,5 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.splash;
 
-
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
@@ -24,6 +23,7 @@ import android.widget.TextView;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.R;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.MainActivity;
+import com.gmail.laktionov.sample.rx.lyricsfinder.splash.fingerprint.FingerprintHandler;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -47,7 +47,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class RxSplashActivity extends AppCompatActivity {
+public class RxSplashActivity extends AppCompatActivity implements FingerprintHandler.AuthListener {
 
     public static final int MARSHMALLOW = Build.VERSION_CODES.M;
     public static final String KEY_NAME = "androidHive";
@@ -184,7 +184,7 @@ public class RxSplashActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.M)
     private void startAuth() {
         FingerprintHandler handler = new FingerprintHandler(this);
-        handler.setListener(this::startMainActivity);
+        handler.setListener(this);
         handler.startAuth(mCryptoObject);
     }
 
@@ -254,6 +254,11 @@ public class RxSplashActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.M)
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.USE_FINGERPRINT}, PERMISSION_CODE);
+    }
+
+    @Override
+    public void onAuthSuccess() {
+        startMainActivity();
     }
 
     public class FingerprintException extends Exception {
