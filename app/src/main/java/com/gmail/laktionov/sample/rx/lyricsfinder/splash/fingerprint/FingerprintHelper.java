@@ -10,7 +10,7 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.NonNull;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.splash.RxSplashActivity;
+import com.gmail.laktionov.sample.rx.lyricsfinder.splash.ui.SplashActivity;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -62,7 +62,7 @@ class FingerprintHelper {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    static void generateKey() throws RxSplashActivity.FingerprintException {
+    static void generateKey() throws SplashActivity.FingerprintException {
         try {
             sKeyStore = KeyStore.getInstance(KEYSTORE);
             sKeyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");

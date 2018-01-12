@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.splash;
+package com.gmail.laktionov.sample.rx.lyricsfinder.splash.ui;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.R;
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.MainActivity;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchActivity;
 import com.gmail.laktionov.sample.rx.lyricsfinder.splash.fingerprint.FingerprintHandler;
 
 import java.io.IOException;
@@ -47,7 +47,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class RxSplashActivity extends AppCompatActivity implements FingerprintHandler.AuthListener {
+public class SplashActivity extends AppCompatActivity implements FingerprintHandler.AuthListener {
 
     public static final int MARSHMALLOW = Build.VERSION_CODES.M;
     public static final String KEY_NAME = "androidHive";
@@ -57,7 +57,7 @@ public class RxSplashActivity extends AppCompatActivity implements FingerprintHa
     public static final int ERROR_LOCKSCREEN_DISABLED = 703;
 
     public static final int PERMISSION_CODE = 10001;
-    private static final String TAG = RxSplashActivity.class.getName();
+    private static final String TAG = SplashActivity.class.getName();
 
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
@@ -268,7 +268,7 @@ public class RxSplashActivity extends AppCompatActivity implements FingerprintHa
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
