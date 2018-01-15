@@ -1,9 +1,7 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.factory;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import com.gmail.laktionov.sample.rx.lyricsfinder.BuildConfig;
+import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.CacheStorage;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.repository.SearchRepository;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchContract;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchPresenter;
@@ -16,11 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PresenterFactory implements FactoryContract {
 
-    private static final String LYRIC_PREFS = "lyric_prefs";
-
     private static PresenterFactory INSTANCE;
     private final Retrofit retrofit;
-    private SharedPreferences sharedPreferences;
+    private CacheStorage inMemoryStorage;
 
     public static PresenterFactory getInstance() {
         return INSTANCE;
@@ -33,10 +29,7 @@ public class PresenterFactory implements FactoryContract {
 
     private PresenterFactory() {
         retrofit = initRetrofit();
-    }
-
-    public void initLocalStorage(Context context) {
-        sharedPreferences = context.getSharedPreferences(LYRIC_PREFS, Context.MODE_PRIVATE);
+        inMemoryStorage = new CacheStorage(10);
     }
 
     private Retrofit initRetrofit() {
@@ -58,6 +51,6 @@ public class PresenterFactory implements FactoryContract {
 
     @Override
     public SearchContract.Presenter getSearchPresenter() {
-        return new SearchPresenter(new SearchRepository(retrofit, sharedPreferences));
+        return new SearchPresenter(new SearchRepository(retrofit, inMemoryStorage));
     }
 }
