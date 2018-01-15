@@ -9,6 +9,6 @@ public class LyricsFinder extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        PresenterFactory.initInstance();
+        PresenterFactory.initInstance(this);
     }
 }

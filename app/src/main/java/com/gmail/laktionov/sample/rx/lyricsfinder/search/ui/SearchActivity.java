@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.R;
 import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.factory.PresenterFactory;
-import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model.SearchError;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,9 +58,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     private void initSearchEngine() {
         mSearchButton.setOnClickListener(v -> {
-            String artistName = mArtistName.getText().toString().trim();
-            String songName = mSongName.getText().toString().trim();
-            presenter.onSearchButtonClick(new String[]{artistName, songName});
+            presenter.onSearchButtonClick(mArtistName.getText().toString(), mSongName.getText().toString());
             hideKeyBoard();
         });
     }
@@ -91,12 +88,9 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     @Override
-    public void showError(int statusCode) {
-        switch (statusCode) {
-            case SearchError.ERROR_CONNECTION:
-                mSongLyric.setText(R.string.lyrics_not_found);
-                break;
-        }
+    public void showError(String message) {
+        mSongLyric.setText(message);
+
     }
 
     @Override

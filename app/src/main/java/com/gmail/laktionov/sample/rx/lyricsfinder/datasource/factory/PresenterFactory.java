@@ -1,7 +1,10 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.factory;
 
+import android.content.Context;
+
 import com.gmail.laktionov.sample.rx.lyricsfinder.BuildConfig;
 import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.LyricCache;
+import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model.SearchError;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.repository.SearchRepository;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchContract;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchPresenter;
@@ -17,19 +20,21 @@ public class PresenterFactory implements FactoryContract {
     private static PresenterFactory INSTANCE;
     private final Retrofit retrofit;
     private LyricCache inMemoryStorage;
+    private SearchError.Handler errorHandler;
 
     public static PresenterFactory getInstance() {
         return INSTANCE;
     }
 
-    public static PresenterFactory initInstance() {
-        INSTANCE = new PresenterFactory();
+    public static PresenterFactory initInstance(Context context) {
+        INSTANCE = new PresenterFactory(context);
         return INSTANCE;
     }
 
-    private PresenterFactory() {
+    private PresenterFactory(Context context) {
         retrofit = initRetrofit();
         inMemoryStorage = new LyricCache(10);
+        errorHandler = new SearchError.Handler(context);
     }
 
     private Retrofit initRetrofit() {
@@ -51,6 +56,6 @@ public class PresenterFactory implements FactoryContract {
 
     @Override
     public SearchContract.Presenter getSearchPresenter() {
-        return new SearchPresenter(new SearchRepository(retrofit, inMemoryStorage));
+        return new SearchPresenter(new SearchRepository(retrofit, inMemoryStorage), errorHandler);
     }
 }

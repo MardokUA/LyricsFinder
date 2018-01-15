@@ -13,10 +13,10 @@ public interface SearchContract {
 
         /**
          * Transfer search request data to {@link Presenter}
-         *
-         * @param searchParams array, that contains search params;
+         * @param artist name of the artist.
+         * @param song name of the song.
          */
-        void onSearchButtonClick(String[] searchParams);
+        void onSearchButtonClick(String artist, String song);
 
         /**
          * Invalidate {@link SearchPresenter} state, when activity is destroying;
@@ -48,8 +48,8 @@ public interface SearchContract {
          * Show error text or clear TextView,
          * if message is empty;
          *
-         * @param statusCode type of error;
+         * @param errorMessage message based on error type;
          */
-        void showError(int statusCode);
+        void showError(String errorMessage);
     }
 }

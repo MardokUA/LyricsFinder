@@ -5,8 +5,14 @@
     <string name="song_name">Song name:</string>
     <string name="afterwords">powered by @lyrics.ovh</string>
     <string name="search">Search</string>
-    <string name="lyrics_not_found">Found nothing</string>
+
     <string name="label">Lyric Finder</string>
     <string name="fingerprint_message">Fingerprint Authentication</string>
     <string name="fingerprint_text">Place your finger on the Home button to verify your self</string>
+
+    <!--Errors -->
+    <string name="error_not_found">Found nothing</string>
+    <string name="error_connection">Connection problems\nTry again later</string>
+    <string name="error_empty_inputs">Invalid request params</string>
+    <string name="error_default">Something goes wrong</string>
 </resources>

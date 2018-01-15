@@ -1,6 +1,5 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.search.repository;
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.LyricCache;
 import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.LocalCache;
 import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.RemoteApi;
 import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model.SearchError;
@@ -19,7 +18,7 @@ public class SearchRepository implements RepositoryContract {
     private final RemoteApi searchApi;
     private final LocalCache localCache;
 
-    public SearchRepository(Retrofit retrofit, LyricCache storage) {
+    public SearchRepository(Retrofit retrofit, LocalCache storage) {
         localCache = storage;
         searchApi = retrofit.create(RemoteApi.class);
     }
@@ -36,7 +35,7 @@ public class SearchRepository implements RepositoryContract {
                         .doOnSuccess(searchResponse -> cacheResponse(request[SONG_NAME], searchResponse.getSongText()))
                         .subscribe(
                                 searchResponse -> emitter.onSuccess(searchResponse.getSongText()),
-                                throwable -> emitter.onError(new SearchError(SearchError.ERROR_CONNECTION)));
+                                throwable -> emitter.onError(new SearchError(throwable.getMessage())));
             }
         });
     }
@@ -53,6 +52,10 @@ public class SearchRepository implements RepositoryContract {
 
     @Override
     public Single<String> getLastResponse() {
-        return Single.create(emitter -> emitter.onSuccess(localCache.getLastSavedData()));
+        return Single.create(emitter -> {
+            if (localCache.getLastSavedData() != null) {
+                emitter.onSuccess(localCache.getLastSavedData());
+            }
+        });
     }
 }
