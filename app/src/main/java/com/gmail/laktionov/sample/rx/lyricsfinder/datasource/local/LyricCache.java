@@ -2,7 +2,7 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local;
 
 import android.support.v4.util.LruCache;
 
-public class CacheStorage extends LruCache<String, String> {
+public class LyricCache extends LruCache<String, String> implements LocalCache {
 
     private String lastResult;
 
@@ -11,16 +11,29 @@ public class CacheStorage extends LruCache<String, String> {
      *                the maximum number of entries in the cache. For all other caches,
      *                this is the maximum sum of the sizes of the entries in this cache.
      */
-    public CacheStorage(int maxSize) {
+    public LyricCache(int maxSize) {
         super(maxSize);
     }
 
 
-    public String getLastResult() {
+    private String getLastResult() {
         return lastResult;
     }
 
-    public void setLastResult(String lastResult) {
-        this.lastResult = lastResult;
+
+    @Override
+    public void saveData(String songName, String songText) {
+        super.put(songName, songText);
+        lastResult = songText;
+    }
+
+    @Override
+    public String getData(String key) {
+        return super.get(key);
+    }
+
+    @Override
+    public String getLastSavedData() {
+        return getLastResult();
     }
 }

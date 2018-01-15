@@ -4,7 +4,7 @@ import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchContract;
 
 public interface FactoryContract {
     /**
-     * @return instance onf {@link com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchPresenter}
+     * @return instance of presenter for {@link com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchActivity}
      */
     SearchContract.Presenter getSearchPresenter();
 

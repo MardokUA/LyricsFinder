@@ -1,7 +1,7 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.factory;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.BuildConfig;
-import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.CacheStorage;
+import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.LyricCache;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.repository.SearchRepository;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchContract;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchPresenter;
@@ -16,7 +16,7 @@ public class PresenterFactory implements FactoryContract {
 
     private static PresenterFactory INSTANCE;
     private final Retrofit retrofit;
-    private CacheStorage inMemoryStorage;
+    private LyricCache inMemoryStorage;
 
     public static PresenterFactory getInstance() {
         return INSTANCE;
@@ -29,7 +29,7 @@ public class PresenterFactory implements FactoryContract {
 
     private PresenterFactory() {
         retrofit = initRetrofit();
-        inMemoryStorage = new CacheStorage(10);
+        inMemoryStorage = new LyricCache(10);
     }
 
     private Retrofit initRetrofit() {

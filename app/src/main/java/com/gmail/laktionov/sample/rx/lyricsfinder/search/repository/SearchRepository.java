@@ -1,7 +1,8 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.search.repository;
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.CacheStorage;
-import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.LyricsApi;
+import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.LyricCache;
+import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local.LocalCache;
+import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.RemoteApi;
 import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model.SearchError;
 import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model.SearchResponse;
 
@@ -15,18 +16,18 @@ public class SearchRepository implements RepositoryContract {
     private static final int ARTIST_NAME = 0;
     private static final int SONG_NAME = 1;
 
-    private final LyricsApi searchApi;
-    private final CacheStorage inMemoryStorage;
+    private final RemoteApi searchApi;
+    private final LocalCache localCache;
 
-    public SearchRepository(Retrofit retrofit, CacheStorage storage) {
-        inMemoryStorage = storage;
-        searchApi = retrofit.create(LyricsApi.class);
+    public SearchRepository(Retrofit retrofit, LyricCache storage) {
+        localCache = storage;
+        searchApi = retrofit.create(RemoteApi.class);
     }
 
     @Override
     public Single<String> searchLyric(String[] request) {
         return Single.create(emitter -> {
-            String cachedText = inMemoryStorage.get(request[SONG_NAME]);
+            String cachedText = localCache.getData(request[SONG_NAME]);
             if (cachedText != null) {
                 emitter.onSuccess(cachedText);
             } else {
@@ -45,14 +46,13 @@ public class SearchRepository implements RepositoryContract {
     }
 
     private void cacheResponse(String songName, String songText) {
-        Completable.fromRunnable(() -> {
-            inMemoryStorage.put(songName, songText);
-            inMemoryStorage.setLastResult(songName);
-        }).subscribeOn(Schedulers.computation()).subscribe();
+        Completable.fromRunnable(() -> localCache.saveData(songName, songText))
+                .subscribeOn(Schedulers.computation())
+                .subscribe();
     }
 
     @Override
     public Single<String> getLastResponse() {
-        return Single.create(emitter -> emitter.onSuccess(inMemoryStorage.get(inMemoryStorage.getLastResult())));
+        return Single.create(emitter -> emitter.onSuccess(localCache.getLastSavedData()));
     }
 }

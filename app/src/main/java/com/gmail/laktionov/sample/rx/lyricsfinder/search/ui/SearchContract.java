@@ -7,14 +7,14 @@ public interface SearchContract {
         /**
          * Set activity reference to {@link SearchPresenter}
          *
-         * @param view: represent {@link SearchActivity}
+         * @param view represent {@link SearchActivity}
          */
         void onActivityCreated(SearchContract.View view);
 
         /**
          * Transfer search request data to {@link Presenter}
          *
-         * @param searchParams: array, that contains search params;
+         * @param searchParams array, that contains search params;
          */
         void onSearchButtonClick(String[] searchParams);
 
@@ -32,14 +32,14 @@ public interface SearchContract {
         /**
          * Force {@link SearchActivity} to show or hide progress bar
          *
-         * @param isShown: state of progress bar visibility;
+         * @param isShown state of progress bar visibility;
          */
         void showProgress(boolean isShown);
 
         /**
          * Force {@link SearchActivity} to show response result;
          *
-         * @param lyric: String with song text
+         * @param lyric String with song text
          */
 
         void showResult(String lyric);
@@ -48,7 +48,7 @@ public interface SearchContract {
          * Show error text or clear TextView,
          * if message is empty;
          *
-         * @param statusCode: type of error;
+         * @param statusCode type of error;
          */
         void showError(int statusCode);
     }
