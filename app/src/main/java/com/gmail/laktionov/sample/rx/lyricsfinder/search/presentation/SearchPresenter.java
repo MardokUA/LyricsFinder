@@ -1,13 +1,13 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.search.ui;
+package com.gmail.laktionov.sample.rx.lyricsfinder.search.presentation;
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model.SearchError;
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.repository.RepositoryContract;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models.SearchError;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.repository.RepositoryContract;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model.SearchError.ERROR_EMPTY_INPUT;
+import static com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models.SearchError.ERROR_EMPTY_INPUT;
 
 public class SearchPresenter implements SearchContract.Presenter {
 
@@ -27,13 +27,13 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void onSearchButtonClick(String name, String song) {
+    public void onSearchButtonClick(String artistName, String songName) {
         disposeSubscription();
-        if (isInputNotVerified(name, song)) {
+        if (isInputNotVerified(artistName, songName)) {
             showError(ERROR_EMPTY_INPUT);
             return;
         }
-        subscribe = repository.searchLyric(new String[]{name, song}).toObservable()
+        subscribe = repository.searchLyric(artistName, songName).toObservable()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> changeLoadingState(true))

@@ -1,6 +1,6 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local;
+package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.local;
 
-public interface LocalCache {
+public interface LocalSource {
 
     /**
      * Cache data in memory storage.

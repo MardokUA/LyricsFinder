@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.search.ui;
+package com.gmail.laktionov.sample.rx.lyricsfinder.search.presentation;
 
 public interface SearchContract {
 

@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model;
+package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models;
 
 import android.content.Context;
 
@@ -10,8 +10,15 @@ public class SearchError extends Throwable {
     public static final int ERROR_EMPTY_INPUT = 102;
     public static final int ERROR_FOUND_NOTHING = 404;
     public static final int ERROR_DEFAULT = 109;
-
     private int statusCode;
+
+    public SearchError() {
+
+    }
+
+    public SearchError(int statusCode) {
+        this.statusCode = statusCode;
+    }
 
     public SearchError(String message) {
         super(message);
@@ -20,14 +27,6 @@ public class SearchError extends Throwable {
         } else {
             statusCode = ERROR_CONNECTION;
         }
-    }
-
-    public SearchError(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public SearchError() {
-
     }
 
     public int getStatusCode() {

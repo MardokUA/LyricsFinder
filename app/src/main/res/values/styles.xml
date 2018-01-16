@@ -13,6 +13,4 @@
     <style name="SearchButton" parent="Base.TextAppearance.AppCompat.Button">
         <item name="android:background">@drawable/button_style</item>
     </style>
-
-
 </resources>

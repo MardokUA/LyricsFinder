@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.remote.model;
+package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,8 +1,8 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.datasource.local;
+package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.local;
 
 import android.support.v4.util.LruCache;
 
-public class LyricCache extends LruCache<String, String> implements LocalCache {
+public class LyricCache extends LruCache<String, String> {
 
     private String lastResult;
 
@@ -15,25 +15,20 @@ public class LyricCache extends LruCache<String, String> implements LocalCache {
         super(maxSize);
     }
 
-
     private String getLastResult() {
         return lastResult;
     }
 
-
-    @Override
-    public void saveData(String songName, String songText) {
+    void saveData(String songName, String songText) {
         super.put(songName, songText);
         lastResult = songText;
     }
 
-    @Override
-    public String getData(String key) {
+    String getData(String key) {
         return super.get(key);
     }
 
-    @Override
-    public String getLastSavedData() {
+    String getLastSavedData() {
         return getLastResult();
     }
 }

@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.splash.ui;
+package com.gmail.laktionov.sample.rx.lyricsfinder.splash.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.R;
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.ui.SearchActivity;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.presentation.SearchActivity;
 
 import java.util.concurrent.TimeUnit;
 

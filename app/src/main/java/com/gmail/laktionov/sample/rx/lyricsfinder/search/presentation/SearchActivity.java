@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.search.ui;
+package com.gmail.laktionov.sample.rx.lyricsfinder.search.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.R;
-import com.gmail.laktionov.sample.rx.lyricsfinder.datasource.factory.PresenterFactory;
+import com.gmail.laktionov.sample.rx.lyricsfinder.core.factory.PresenterFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
