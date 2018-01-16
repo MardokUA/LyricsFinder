@@ -2,7 +2,7 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.repository;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.local.SearchLocalSource;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.SearchRemoteSource;
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models.SearchError;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model.SearchError;
 
 import io.reactivex.Single;
 

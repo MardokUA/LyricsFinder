@@ -2,7 +2,7 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.local;
 
 import android.support.v4.util.LruCache;
 
-public class LyricCache extends LruCache<String, String> {
+public class SearchCache extends LruCache<String, String> {
 
     private String lastResult;
 
@@ -11,7 +11,7 @@ public class LyricCache extends LruCache<String, String> {
      *                the maximum number of entries in the cache. For all other caches,
      *                this is the maximum sum of the sizes of the entries in this cache.
      */
-    public LyricCache(int maxSize) {
+    public SearchCache(int maxSize) {
         super(maxSize);
     }
 

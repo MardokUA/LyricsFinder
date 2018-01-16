@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models;
+package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model;
 
 import android.content.Context;
 

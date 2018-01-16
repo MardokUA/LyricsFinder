@@ -1,13 +1,13 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.search.presentation;
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models.SearchError;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model.SearchError;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.repository.RepositoryContract;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models.SearchError.ERROR_EMPTY_INPUT;
+import static com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model.SearchError.ERROR_EMPTY_INPUT;
 
 public class SearchPresenter implements SearchContract.Presenter {
 

@@ -5,9 +5,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SearchLocalSource implements LocalSource {
 
-    private final LyricCache inMemoryCache;
+    private final SearchCache inMemoryCache;
 
-    public SearchLocalSource(LyricCache inMemoryCache) {
+    public SearchLocalSource(SearchCache inMemoryCache) {
         this.inMemoryCache = inMemoryCache;
     }
 
