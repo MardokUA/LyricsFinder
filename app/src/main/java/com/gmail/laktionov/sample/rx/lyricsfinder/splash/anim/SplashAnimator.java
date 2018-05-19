@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.splash.presentation.anim;
+package com.gmail.laktionov.sample.rx.lyricsfinder.splash.anim;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

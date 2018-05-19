@@ -3,11 +3,11 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.core.factory;
 import android.content.Context;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.BuildConfig;
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.local.LyricCache;
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models.SearchError;
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.repository.SearchRepository;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.local.SearchCache;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.local.SearchLocalSource;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.SearchRemoteSource;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model.SearchError;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.repository.SearchRepository;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.presentation.SearchContract;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.presentation.SearchPresenter;
 
@@ -22,7 +22,7 @@ public class PresenterFactory implements FactoryContract {
     private static PresenterFactory INSTANCE;
 
     private final Retrofit retrofit;
-    private final LyricCache inMemoryCache;
+    private final SearchCache inMemoryCache;
     private SearchError.Handler errorHandler;
 
     public static PresenterFactory getInstance() {
@@ -35,7 +35,7 @@ public class PresenterFactory implements FactoryContract {
 
     private PresenterFactory(Context context) {
         retrofit = initRetrofit();
-        inMemoryCache = new LyricCache(10);
+        inMemoryCache = new SearchCache(10);
         errorHandler = new SearchError.Handler(context);
     }
 

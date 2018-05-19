@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.splash.presentation;
+package com.gmail.laktionov.sample.rx.lyricsfinder.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,13 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SplashActivity extends AppCompatActivity {
 
     private Intent intent;
+    private Disposable subscription;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void delayStart() {
-        Completable.fromRunnable(() -> {
+        subscription = Completable.fromRunnable(() -> {
             intent = new Intent(this, SearchActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         })
@@ -39,4 +41,11 @@ public class SplashActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (subscription != null && !subscription.isDisposed()) {
+            subscription.dispose();
+        }
+    }
 }

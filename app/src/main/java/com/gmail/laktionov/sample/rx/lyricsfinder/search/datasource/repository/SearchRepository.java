@@ -1,5 +1,7 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.repository;
 
+import android.annotation.SuppressLint;
+
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.local.SearchLocalSource;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.SearchRemoteSource;
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model.SearchError;
@@ -16,6 +18,7 @@ public class SearchRepository implements RepositoryContract {
         this.localSource = localSource;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public Single<String> searchLyric(String artistName, String songName) {
         return Single.create(emitter -> {
