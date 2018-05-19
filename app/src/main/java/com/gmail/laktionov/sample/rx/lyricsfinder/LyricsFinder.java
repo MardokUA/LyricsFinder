@@ -2,7 +2,7 @@ package com.gmail.laktionov.sample.rx.lyricsfinder;
 
 import android.app.Application;
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.factory.PresenterFactory;
+import com.gmail.laktionov.sample.rx.lyricsfinder.version1.core.factory.PresenterFactory;
 
 public class LyricsFinder extends Application {
 
