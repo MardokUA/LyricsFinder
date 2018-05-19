@@ -1,6 +1,6 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.remote;
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.models.SearchResponse;
+import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model.SearchResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

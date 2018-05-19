@@ -4,7 +4,7 @@ import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model
 import com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.repository.RepositoryContract;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.gmail.laktionov.sample.rx.lyricsfinder.search.datasource.remote.model.SearchError.ERROR_EMPTY_INPUT;
@@ -14,7 +14,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     private final RepositoryContract repository;
     private final SearchError.Handler errorHandler;
     private SearchContract.View view;
-    private Disposable subscribe;
+    private CompositeDisposable subscribe = new CompositeDisposable();
 
     public SearchPresenter(RepositoryContract repository, SearchError.Handler errorHandler) {
         this.repository = repository;
@@ -33,22 +33,22 @@ public class SearchPresenter implements SearchContract.Presenter {
             showError(ERROR_EMPTY_INPUT);
             return;
         }
-        subscribe = repository.searchLyric(artistName, songName).toObservable()
+        subscribe.add(repository.searchLyric(artistName, songName).toObservable()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> changeLoadingState(true))
                 .doAfterTerminate(() -> changeLoadingState(false))
                 .subscribe(
                         this::showSongText,
-                        throwable -> showError(((SearchError) throwable).getStatusCode()));
+                        throwable -> showError(((SearchError) throwable).getStatusCode())));
     }
 
     @Override
     public void onActivityRecreated() {
-        repository.getLastResponse()
+        subscribe.add(repository.getLastResponse()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::showSongText);
+                .subscribe(this::showSongText));
     }
 
     private void showSongText(String songText) {
