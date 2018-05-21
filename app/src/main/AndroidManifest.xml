@@ -17,6 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- version1 -->
         <activity android:name=".version1.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +29,10 @@
         <activity
             android:name=".version1.search.presentation.SearchActivity"
             android:windowSoftInputMode="adjustPan" />
+
+        <!-- version2 -->
+        <activity android:name=".version2.splash.SplashActivityV2" />
+        <activity android:name=".version2.search.SearchActivityV2" />
     </application>
 
 </manifest>

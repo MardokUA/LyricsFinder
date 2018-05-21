@@ -22,5 +22,8 @@ data class LyricRequest(@SerializedName("artist") val artistName: String,
  * Represent main API response
  */
 data class LyricResponse(@SerializedName("statusCode") val statusCode: Int,
-                         @SerializedName("lyrics") val songTest: String,
-                         @SerializedName("error") val errorMessage: String)
+                         @SerializedName("lyrics") val songText: String,
+                         @SerializedName("error") val errorMessage: String) {
+
+    fun isNotEmpty() = errorMessage.isNotEmpty()
+}

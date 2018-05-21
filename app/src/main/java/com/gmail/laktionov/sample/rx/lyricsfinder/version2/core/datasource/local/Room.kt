@@ -1,7 +1,7 @@
 package com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.local
 
 import android.arch.persistence.room.*
-import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.local.RoomDataBase.Companion.DATABASE_VERSION
+import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.local.DataBase.Companion.DATABASE_VERSION
 
 
 /**
@@ -13,7 +13,7 @@ import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.local
         version = DATABASE_VERSION,
         exportSchema = false)
 
-abstract class RoomDataBase : RoomDatabase() {
+abstract class DataBase : RoomDatabase() {
 
     abstract fun getDao(): RoomDao
 
@@ -32,6 +32,9 @@ interface RoomDao {
 
     @Insert
     fun addSong(data: SongEntity)
+
+    @Query("SELECT * FROM songs WHERE artist = :artistName AND song_name = :songName")
+    fun getSong(artistName: String, songName: String): SongEntity
 }
 
 
@@ -41,6 +44,10 @@ interface RoomDao {
  */
 
 @Entity(tableName = "songs")
-data class SongEntity(@ColumnInfo(name = "artist") val artistName: String,
+data class SongEntity(@PrimaryKey(autoGenerate = true) val id: Int = 0,
+                      @ColumnInfo(name = "artist") val artistName: String,
                       @ColumnInfo(name = "song_name") val songName: String,
-                      @ColumnInfo(name = "song_lyric") val songLyric: String)
+                      @ColumnInfo(name = "song_lyric") val songLyric: String) {
+
+    fun isNotEmpty() = artistName.isNotEmpty() && songName.isNotEmpty() && songLyric.isNotEmpty()
+}
