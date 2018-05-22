@@ -17,6 +17,9 @@ class LyricRepository(private val localSource: LocalSource,
                       private val remoteSource: RemoteSource,
                       private val uiContext: CoroutineContext = UI) : Repository {
 
+    constructor(localSource: LocalSource,
+                remoteSource: RemoteSource) : this(localSource, remoteSource, UI)
+
     override fun prepareSearchEngine() {
 
     }

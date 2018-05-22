@@ -6,8 +6,7 @@ import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.Repos
 import com.gmail.laktionov.sample.rx.lyricsfinder.version2.search.SearchViewModel
 
 class ViewModelFactory private constructor(
-        private val repository: Repository)
-    : ViewModelProvider.NewInstanceFactory() {
+        private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             with(modelClass) {

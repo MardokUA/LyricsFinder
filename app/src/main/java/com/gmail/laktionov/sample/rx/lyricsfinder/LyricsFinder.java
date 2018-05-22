@@ -20,7 +20,7 @@ public class LyricsFinder extends Application {
     public void onCreate() {
         super.onCreate();
         //version1
-        PresenterFactory.initInstance(this);
+//        PresenterFactory.initInstance(this);
         //version2
         ViewModelFactory.Companion.initViewModelFactory(createRepository());
     }

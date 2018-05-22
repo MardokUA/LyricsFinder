@@ -25,7 +25,7 @@ class RemoteDataSource : RemoteSource {
     private fun provideInterceptor(): Interceptor = HttpLoggingInterceptor().also { it.level = HttpLoggingInterceptor.Level.BODY }
 
     override fun findLyricRemote(request: LyricRequest): LyricResponse {
-        val result = serverApi.findLyric(request).execute()
+        val result = serverApi.findLyric(request.artistName, request.songName).execute()
         return result?.body() ?: LyricResponse(ERROR_CODE)
     }
 

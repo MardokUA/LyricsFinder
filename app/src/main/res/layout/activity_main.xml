@@ -25,17 +25,17 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="@dimen/main_padding"
-        android:layout_marginTop="@dimen/main_small_padding"
+        android:layout_marginTop="8dp"
         android:text="@string/artist_name"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/main_text_height"
         app:layout_constraintBottom_toBottomOf="@+id/et_artist_title"
-        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/et_artist_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_preview_title" />
+        app:layout_constraintTop_toTopOf="@+id/et_artist_title"
+        app:layout_constraintVertical_bias="0.615" />
 
     <EditText
         android:id="@+id/et_artist_title"
@@ -49,8 +49,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/main_text_height"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="7"
-        app:layout_constraintLeft_toRightOf="@+id/tv_artist_title"
+        app:layout_constraintStart_toEndOf="@id/tv_artist_title"
         app:layout_constraintTop_toBottomOf="@id/tv_preview_title" />
 
     <TextView
@@ -59,17 +58,17 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="@dimen/main_padding"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:text="@string/song_name"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/main_text_height"
         app:layout_constraintBottom_toBottomOf="@+id/et_song_title"
-        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/et_song_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_artist_title" />
+        app:layout_constraintTop_toTopOf="@+id/et_song_title"
+        app:layout_constraintVertical_bias="0.8" />
 
     <EditText
         android:id="@+id/et_song_title"
@@ -83,8 +82,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/main_text_height"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="7"
-        app:layout_constraintLeft_toRightOf="@+id/tv_song_title"
+        app:layout_constraintStart_toEndOf="@id/tv_song_title"
         app:layout_constraintTop_toBottomOf="@id/et_artist_title" />
 
     <Button

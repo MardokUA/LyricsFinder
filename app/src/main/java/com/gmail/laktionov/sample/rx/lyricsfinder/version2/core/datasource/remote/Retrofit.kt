@@ -2,14 +2,17 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.remo
 
 import com.google.gson.annotations.SerializedName
 import retrofit2.Call
-import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * Represent main API to remote connection
  */
 interface LyricApi {
 
-    fun findLyric(@Body request: LyricRequest): Call<LyricResponse>
+    @GET("{artist}/{title}")
+    fun findLyric(@Path("artist") artistName: String,
+                  @Path("title") songName: String): Call<LyricResponse>
 }
 
 /**

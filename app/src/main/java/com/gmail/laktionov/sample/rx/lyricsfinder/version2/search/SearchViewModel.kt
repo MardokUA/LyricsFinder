@@ -3,6 +3,7 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.version2.search
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.Repository
+import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.newSingleThreadContext
@@ -12,7 +13,8 @@ class SearchViewModel(private val repository: Repository,
                       private val songLyricData: MutableLiveData<String> = MutableLiveData(),
                       private val loadingStateData: MutableLiveData<Boolean> = MutableLiveData(),
                       private val uiContext: CoroutineContext = UI,
-                      private val bgContext: CoroutineContext = newSingleThreadContext(THREAD_NAME)) : ViewModel() {
+                      private val bgContext: CoroutineContext = newSingleThreadContext(THREAD_NAME),
+                      private val executionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, throwable -> throwable.printStackTrace() }) : ViewModel() {
 
     private var previousRequest: Pair<String, String> = Pair(INIT_DATA, INIT_DATA)
 
@@ -20,7 +22,7 @@ class SearchViewModel(private val repository: Repository,
     fun observeLoadingState() = loadingStateData
 
     fun searchLyric(artistName: String, songName: String) {
-        launch(bgContext) {
+        launch(bgContext + executionHandler) {
             val currentRequest = prepareRequest(artistName, songName)
             if (currentRequest.isNotEmpty() && currentRequest != previousRequest) {
                 previousRequest = currentRequest
