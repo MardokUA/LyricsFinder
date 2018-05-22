@@ -20,7 +20,7 @@ class SearchActivityV2 : AppCompatActivity() {
         viewModel.observeSongData().observe(this, Observer { it?.let { proceedResponse(it) } })
         viewModel.observeLoadingState().observe(this, Observer { it?.let { updateLoadingState(it) } })
 
-        btn_search_lyric.setOnClickListener { viewModel }
+        btn_search_lyric.setOnClickListener { viewModel.searchLyric(et_artist_title.text.toString(), et_song_title.text.toString()) }
     }
 
     private fun updateLoadingState(isUpdate: Boolean) {
