@@ -12,7 +12,6 @@ kotlin {
 
 android {
     compileSdkVersion targetSdk
-    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.gmail.laktionov.sample.rx.lyricsfinder"
@@ -43,6 +42,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:design:$appCompat"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
 

@@ -19,6 +19,7 @@
         android:theme="@style/AppTheme">
 
         <!-- version1 -->
+
         <activity android:name=".version1.splash.SplashActivity">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
@@ -30,14 +31,19 @@
             android:windowSoftInputMode="adjustPan" />
 
         <!-- version2 -->
+
         <activity android:name=".version2.splash.SplashActivityV2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".version2.search.SearchActivityV2" />
+
+        <activity
+            android:name=".version2.search.SearchActivityV2"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".version2.pin.PinActivity" />
     </application>
 
 </manifest>
