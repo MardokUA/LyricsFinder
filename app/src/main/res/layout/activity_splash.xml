@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/app_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.361" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/auth_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/app_label"
         app:layout_constraintVertical_bias="0.062" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/fingerprint_image"
         android:layout_width="36dp"
         android:layout_height="36dp"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/auth_label"
         app:srcCompat="@drawable/ic_fingerprint" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/auth_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,5 +57,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fingerprint_image" />
+
+    <WebView
+        android:id="@+id/lyricWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </android.support.constraint.ConstraintLayout>

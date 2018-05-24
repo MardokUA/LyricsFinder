@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 
 import com.gmail.laktionov.sample.rx.lyricsfinder.version1.core.factory.PresenterFactory;
+import com.gmail.laktionov.sample.rx.lyricsfinder.version2.DIManager;
 import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.LyricRepository;
 import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.ViewModelFactory;
 import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.LocalSource;
@@ -19,25 +20,13 @@ public class LyricsFinder extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //version1
+        //starts version1
 //        PresenterFactory.initInstance(this);
-        //version2
+        //starts version2
         ViewModelFactory.Companion.initViewModelFactory(createRepository());
     }
 
     private LyricRepository createRepository() {
-        return new LyricRepository(createLocalStorage(), createRemoteStorage());
-    }
-
-    private RemoteDataSource createRemoteStorage() {
-        return new RemoteDataSource();
-    }
-
-    private LocalDataSource createLocalStorage() {
-        return new LocalDataSource(createRoom());
-    }
-
-    private DataBase createRoom() {
-        return Room.databaseBuilder(this, DataBase.class, "lyric.db").build();
+        return DIManager.INSTANCE.createRepository(this);
     }
 }
