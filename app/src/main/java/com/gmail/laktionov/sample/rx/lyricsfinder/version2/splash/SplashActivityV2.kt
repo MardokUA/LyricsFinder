@@ -2,15 +2,21 @@ package com.gmail.laktionov.sample.rx.lyricsfinder.version2.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.http.SslError
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatButton
+import android.util.Log
+import android.view.View
+import android.webkit.*
 import com.gmail.laktionov.sample.rx.lyricsfinder.R
 import com.gmail.laktionov.sample.rx.lyricsfinder.version2.search.SearchActivityV2
 import kotlinx.android.synthetic.main.activity_pin.*
+import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import java.io.IOException
 
 class SplashActivityV2 : AppCompatActivity() {
 
@@ -18,7 +24,7 @@ class SplashActivityV2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_splash)
         setContentView(R.layout.activity_pin)
-//        showTestWebView()
+        showTestWebView()
 //        delayStart()
         pinZero.setOnClickListener { onPinButtonClickListener(it as AppCompatButton) }
         pinOne.setOnClickListener { onPinButtonClickListener(it as AppCompatButton) }
@@ -56,7 +62,6 @@ class SplashActivityV2 : AppCompatActivity() {
             }
         }
     }
-
 
     private fun concatText(text: String, number: String): String = "$text$number"
 

@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_backspace_pressed" android:state_pressed="true" />
+    <item android:drawable="@drawable/ic_backspace_enabled" android:state_enabled="true" />
+    <item android:drawable="@drawable/ic_backspace_enabled" android:state_enabled="false" />
+</selector>
