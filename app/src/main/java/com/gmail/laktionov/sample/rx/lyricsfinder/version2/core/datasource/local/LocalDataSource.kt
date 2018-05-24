@@ -4,7 +4,7 @@ import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.Local
 
 class LocalDataSource(private val db: DataBase) : LocalSource {
 
-    override fun getLocalLyric(artistName: String, songName: String) = db.getDao().getSong(artistName = artistName, songName = songName)
+    override fun getLyricLocal(artistName: String, songName: String) = db.getDao().getSong(artistName = artistName, songName = songName)
 
     override fun storeData(entity: SongEntity) = db.getDao().addSong(entity)
 
