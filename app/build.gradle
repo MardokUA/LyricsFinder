@@ -4,12 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
 android {
     compileSdkVersion targetSdk
 
@@ -35,6 +29,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+kotlin {
+    experimental {
+        coroutines 'enable'
     }
 }
 
