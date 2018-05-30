@@ -23,14 +23,18 @@ class LyricRepository(private val localSource: LocalSource,
 
     }
 
-    override suspend fun findLyrics(artistName: String, songName: String): SongLyric {
+    override suspend fun findLyrics(request: Pair<String, String>): SongLyric {
+        //STEP #1: extract data
+        val (artistName, songName) = request
+
+        //STEP #2: build requests nad fires it on demand sequentially
         val localRequest = async { localSource.getLyricLocal(artistName, songName) }
         val remoteRequest = async { remoteSource.findLyricRemote(createRequest(artistName, songName)) }
 
-        //STEP #2: check local data
+        //STEP #3: check local data
         localRequest.await().let { it?.let { return mapFromEntity(it) } }
 
-        //STEP #1: get remote data
+        //STEP #4: get remote data
         remoteRequest.await().let {
             if (it.isNotEmpty()) persistData(artistName, songName, it)
             return mapFromResponse(it)
@@ -38,14 +42,15 @@ class LyricRepository(private val localSource: LocalSource,
     }
 
 
-    override fun findLyricsAsync(artistName: String, songName: String): Deferred<SongLyric> {
+    override fun findLyricsAsync(request: Pair<String, String>): Deferred<SongLyric> {
         return async {
-            val localResponse = localSource.getLyricLocal(artistName, songName)
-            val remoteResponse = remoteSource.findLyricRemote(createRequest(artistName, songName))
+            val (artistName, songName) = request
 
+            val localResponse = localSource.getLyricLocal(artistName, songName)
             if (localResponse != null) {
                 return@async mapFromEntity(localResponse)
             } else {
+                val remoteResponse = remoteSource.findLyricRemoteAsync(createRequest(artistName, songName))
                 if (remoteResponse.isNotEmpty()) persistData(artistName, songName, remoteResponse)
                 return@async mapFromResponse(remoteResponse)
             }
@@ -58,7 +63,7 @@ class LyricRepository(private val localSource: LocalSource,
 
     private fun mapFromResponse(response: LyricResponse): SongLyric {
         return when {
-            response.hasErrors() -> SongLyric(errorMessage = "Nothing found %(")
+            response.hasErrors() -> SongLyric(errorMessage = ERROR_TEXT)
             else -> SongLyric(singLyric = response.songText)
         }
     }

@@ -7,8 +7,8 @@ interface Repository {
 
     fun prepareSearchEngine()
 
-    suspend fun findLyrics(artistName: String, songName: String): SongLyric
+    suspend fun findLyrics(request: Pair<String,String>): SongLyric
 
-    fun findLyricsAsync(artistName: String, songName: String): Deferred<SongLyric>
+    fun findLyricsAsync(request: Pair<String, String>): Deferred<SongLyric>
 
 }
