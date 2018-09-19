@@ -1,13 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.41'
+    ext.kotlin_version = '1.2.70'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.1.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -18,28 +18,6 @@ allprojects {
         google()
         jcenter()
     }
-}
-
-ext {
-    minSdk = 21
-    targetSdk = 27
-    versionCode = 1
-    versionName = "1.0"
-
-    appCompat = '27.1.1'
-    constreint = '1.1.0'
-
-    rxAndroid = '2.0.1'
-    rxJava = '2.1.6'
-
-    retrofit = '2.4.0'
-    retrofitInterceptor = '3.8.0'
-
-    butterKnife = '8.8.1'
-    coroutines = '0.22.5'
-
-    archLifecycleVersion = "1.1.1"
-    roomVer = '1.1.0'
 }
 
 task clean(type: Delete) {
