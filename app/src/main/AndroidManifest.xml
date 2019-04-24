@@ -3,14 +3,9 @@
     package="com.gmail.laktionov.sample.rx.lyricsfinder">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
-
-    <uses-feature
-        android:name="android.hardware.fingerprint"
-        android:required="false" />
 
     <application
-        android:name=".LyricsFinder"
+        android:name=".LyricFinder"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,10 +16,10 @@
         <!-- version1 -->
 
         <activity android:name=".version1.splash.SplashActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".version1.search.presentation.SearchActivity"
@@ -38,12 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".version2.search.SearchActivityV2"
-            android:windowSoftInputMode="adjustPan" />
-
-        <activity android:name=".version2.pin.PinActivity" />
     </application>
 
 </manifest>

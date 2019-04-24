@@ -6,6 +6,4 @@ import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.datasource.remot
 interface RemoteSource {
 
     fun findLyricRemote(request: LyricRequest): LyricResponse
-
-    suspend fun findLyricRemoteAsync(request: LyricRequest): LyricResponse
 }
