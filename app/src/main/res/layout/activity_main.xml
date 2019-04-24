@@ -6,9 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".version1.search.presentation.SearchActivity">
+    tools:context=".search.SearchActivity">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_preview_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,15 +17,16 @@
         android:text="@string/preview_text"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/main_text_height"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_artist_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="@dimen/main_padding"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/artist_name"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
@@ -37,13 +38,13 @@
         app:layout_constraintTop_toTopOf="@+id/et_artist_title"
         app:layout_constraintVertical_bias="0.615" />
 
-    <EditText
+    <android.support.v7.widget.AppCompatEditText
         android:id="@+id/et_artist_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/main_padding"
         android:layout_marginStart="@dimen/main_small_padding"
         android:layout_marginTop="@dimen/main_small_padding"
+        android:layout_marginEnd="@dimen/main_padding"
         android:hint="@null"
         android:inputType="textAutoCorrect"
         android:textColor="@color/colorAccent"
@@ -52,13 +53,13 @@
         app:layout_constraintStart_toEndOf="@id/tv_artist_title"
         app:layout_constraintTop_toBottomOf="@id/tv_preview_title" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_song_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="@dimen/main_padding"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/song_name"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
@@ -70,13 +71,13 @@
         app:layout_constraintTop_toTopOf="@+id/et_song_title"
         app:layout_constraintVertical_bias="0.8" />
 
-    <EditText
+    <android.support.v7.widget.AppCompatEditText
         android:id="@+id/et_song_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/main_padding"
         android:layout_marginStart="@dimen/main_small_padding"
         android:layout_marginTop="@dimen/main_small_padding"
+        android:layout_marginEnd="@dimen/main_padding"
         android:hint="@null"
         android:inputType="textAutoCorrect"
         android:textColor="@color/colorAccent"
@@ -85,13 +86,13 @@
         app:layout_constraintStart_toEndOf="@id/tv_song_title"
         app:layout_constraintTop_toBottomOf="@id/et_artist_title" />
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_search_lyric"
         style="@style/SearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/main_padding"
         android:layout_marginTop="@dimen/main_small_padding"
+        android:layout_marginEnd="@dimen/main_padding"
         android:gravity="center"
         android:minHeight="@dimen/title_height"
         android:text="@string/search"
@@ -112,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@id/btn_search_lyric"
         app:layout_constraintWidth_default="spread">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_song_lyric"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,7 +122,6 @@
             android:textColor="@color/colorAccent"
             android:textSize="14sp" />
     </ScrollView>
-
 
     <ProgressBar
         android:id="@+id/pb_progress"
@@ -134,9 +134,9 @@
         app:layout_constraintStart_toStartOf="@+id/sv_container"
         app:layout_constraintTop_toTopOf="@+id/sv_container" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_afterwords"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:gravity="center"
@@ -144,6 +144,8 @@
         android:text="@string/afterwords"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/main_text_height"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

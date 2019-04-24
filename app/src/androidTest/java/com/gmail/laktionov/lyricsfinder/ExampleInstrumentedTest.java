@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder;
+package com.gmail.laktionov.lyricsfinder;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.gmail.laktionov.sample.rx.lyricsfinder", appContext.getPackageName());
+        assertEquals("com.gmail.laktionov.lyricsfinder", appContext.getPackageName());
     }
 }

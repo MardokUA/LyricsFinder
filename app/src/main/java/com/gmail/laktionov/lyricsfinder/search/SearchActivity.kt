@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.search
+package com.gmail.laktionov.lyricsfinder.search
 
 import android.arch.lifecycle.Observer
 import android.content.Context
@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.gmail.laktionov.sample.rx.lyricsfinder.R
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.ViewModelFactory
+import com.gmail.laktionov.lyricsfinder.R
+import com.gmail.laktionov.lyricsfinder.core.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class SearchActivity : AppCompatActivity() {

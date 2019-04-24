@@ -1,6 +1,6 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.remote
+package com.gmail.laktionov.lyricsfinder.core.datasource.remote
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.RemoteSource
+import com.gmail.laktionov.lyricsfinder.core.datasource.RemoteSource
 import java.io.IOException
 
 class RemoteDataSource(private val serverApi: LyricApi) : RemoteSource {

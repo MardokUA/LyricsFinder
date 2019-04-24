@@ -1,11 +1,11 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.search
+package com.gmail.laktionov.lyricsfinder.search
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.Repository
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.isNotEmpty
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.model.SongLyric
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.prepareInput
+import com.gmail.laktionov.lyricsfinder.core.datasource.Repository
+import com.gmail.laktionov.lyricsfinder.core.isNotEmpty
+import com.gmail.laktionov.lyricsfinder.core.model.SongLyric
+import com.gmail.laktionov.lyricsfinder.core.prepareInput
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

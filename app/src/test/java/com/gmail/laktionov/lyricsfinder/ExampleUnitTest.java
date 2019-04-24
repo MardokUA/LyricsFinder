@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder;
+package com.gmail.laktionov.lyricsfinder;
 
 import org.junit.Test;
 

@@ -1,9 +1,9 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.core
+package com.gmail.laktionov.lyricsfinder.core
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.Repository
-import com.gmail.laktionov.sample.rx.lyricsfinder.search.SearchViewModel
+import com.gmail.laktionov.lyricsfinder.core.datasource.Repository
+import com.gmail.laktionov.lyricsfinder.search.SearchViewModel
 import kotlinx.coroutines.CoroutineScope
 
 class ViewModelFactory private constructor(

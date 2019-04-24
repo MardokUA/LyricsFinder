@@ -1,12 +1,12 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.core
+package com.gmail.laktionov.lyricsfinder.core
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.LocalSource
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.RemoteSource
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.Repository
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.local.SongEntity
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.remote.LyricRequest
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.remote.LyricResponse
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.model.SongLyric
+import com.gmail.laktionov.lyricsfinder.core.datasource.LocalSource
+import com.gmail.laktionov.lyricsfinder.core.datasource.RemoteSource
+import com.gmail.laktionov.lyricsfinder.core.datasource.Repository
+import com.gmail.laktionov.lyricsfinder.core.datasource.local.SongEntity
+import com.gmail.laktionov.lyricsfinder.core.datasource.remote.LyricRequest
+import com.gmail.laktionov.lyricsfinder.core.datasource.remote.LyricResponse
+import com.gmail.laktionov.lyricsfinder.core.model.SongLyric
 
 class LyricRepository(private val localSource: LocalSource,
                       private val remoteSource: RemoteSource) : Repository {

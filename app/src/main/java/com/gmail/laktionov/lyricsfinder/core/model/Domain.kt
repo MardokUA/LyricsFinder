@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.core.model
+package com.gmail.laktionov.lyricsfinder.core.model
 
 data class SongLyric(val artistName: String = "",
                      val songName: String = "",

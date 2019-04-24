@@ -1,7 +1,7 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource
+package com.gmail.laktionov.lyricsfinder.core.datasource
 
 import android.support.annotation.WorkerThread
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.model.SongLyric
+import com.gmail.laktionov.lyricsfinder.core.model.SongLyric
 
 interface Repository {
 

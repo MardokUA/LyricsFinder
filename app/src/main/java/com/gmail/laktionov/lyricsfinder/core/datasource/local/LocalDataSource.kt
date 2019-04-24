@@ -1,6 +1,6 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.local
+package com.gmail.laktionov.lyricsfinder.core.datasource.local
 
-import com.gmail.laktionov.sample.rx.lyricsfinder.core.datasource.LocalSource
+import com.gmail.laktionov.lyricsfinder.core.datasource.LocalSource
 
 class LocalDataSource(private val db: DataBase) : LocalSource {
 

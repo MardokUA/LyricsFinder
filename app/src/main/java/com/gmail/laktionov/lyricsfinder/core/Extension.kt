@@ -1,4 +1,4 @@
-package com.gmail.laktionov.sample.rx.lyricsfinder.core
+package com.gmail.laktionov.lyricsfinder.core
 
 import kotlinx.coroutines.suspendCancellableCoroutine
 import retrofit2.Call
