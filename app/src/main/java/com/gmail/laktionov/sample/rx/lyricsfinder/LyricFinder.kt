@@ -2,9 +2,8 @@ package com.gmail.laktionov.sample.rx.lyricsfinder
 
 import android.app.Application
 import android.util.Log
-import com.gmail.laktionov.sample.rx.lyricsfinder.version2.DIManager
-import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.LyricRepository
-import com.gmail.laktionov.sample.rx.lyricsfinder.version2.core.ViewModelFactory
+import com.gmail.laktionov.sample.rx.lyricsfinder.core.LyricRepository
+import com.gmail.laktionov.sample.rx.lyricsfinder.core.ViewModelFactory
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,4 +33,10 @@ class LyricFinder : Application() {
             CoroutineExceptionHandler { _, throwable ->
                 Log.e("LyricFinder", "${throwable.message}")
             }
+
+    companion object {
+        fun logSmth(msg: String) {
+            Log.d("LyricFinder", msg)
+        }
+    }
 }
