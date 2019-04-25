@@ -1,9 +1,6 @@
 package com.gmail.laktionov.lyricsfinder.domain.datasource.remote
 
-import com.gmail.laktionov.lyricsfinder.domain.BaseResponse
-import com.gmail.laktionov.lyricsfinder.domain.DataResponse
-import com.gmail.laktionov.lyricsfinder.domain.ErrorResponse
-import com.gmail.laktionov.lyricsfinder.domain.SongLyric
+import com.gmail.laktionov.lyricsfinder.domain.*
 import com.gmail.laktionov.lyricsfinder.domain.datasource.RemoteSource
 import retrofit2.Call
 import retrofit2.Response
@@ -29,16 +26,16 @@ class RemoteDataSource(private val serverApi: LyricApi) : RemoteSource {
         return try {
             val response: Response<T> = execute()
             if (response.isSuccessful && response.code() == 200) {
-                response.body()?.let { DataResponse(it) } ?: ErrorResponse(EMPTY_BODY)
+                response.body()?.let { DataResponse(it) } ?: ErrorResponse(Type.EMPTY_BODY)
             } else {
-                ErrorResponse(response.code(), response.message())
+                ErrorResponse(Type.HTTP_ERROR, response.message())
             }
         } catch (e: Exception) {
             return when (e) {
                 is SocketTimeoutException,
                 is UnknownHostException,
-                is ConnectException -> ErrorResponse(CONNECTION_ERROR)
-                else -> ErrorResponse(UNKNOWN_ERROR)
+                is ConnectException -> ErrorResponse(Type.CONNECTION_ERROR)
+                else -> ErrorResponse(Type.UNKNOWN_ERROR)
             }
         }
     }
@@ -54,10 +51,4 @@ class RemoteDataSource(private val serverApi: LyricApi) : RemoteSource {
                 is ErrorResponse -> ErrorResponse(this.errorType)
                 is DataResponse -> DataResponse(transform.invoke(data))
             }
-
-    companion object {
-        const val CONNECTION_ERROR = 500
-        const val UNKNOWN_ERROR = 520
-        const val EMPTY_BODY = 4044
-    }
 }

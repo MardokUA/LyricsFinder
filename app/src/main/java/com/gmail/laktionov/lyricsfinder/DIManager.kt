@@ -29,7 +29,8 @@ object DIManager {
         createStorage(context).let { result ->
             return LyricRepository(
                     localSource = result.first,
-                    remoteSource = result.second)
+                    remoteSource = result.second,
+                    androidResources = context.resources)
         }
     }
 
