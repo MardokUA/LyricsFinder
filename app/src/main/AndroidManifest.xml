@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".splash.SplashActivity"
+            android:name="com.gmail.laktionov.lyricsfinder.ui.splash.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,10 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".search.SearchActivity"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

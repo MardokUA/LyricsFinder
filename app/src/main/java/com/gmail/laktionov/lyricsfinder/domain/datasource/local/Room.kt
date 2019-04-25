@@ -1,7 +1,7 @@
-package com.gmail.laktionov.lyricsfinder.core.datasource.local
+package com.gmail.laktionov.lyricsfinder.domain.datasource.local
 
 import android.arch.persistence.room.*
-import com.gmail.laktionov.lyricsfinder.core.datasource.local.DataBase.Companion.DATABASE_VERSION
+import com.gmail.laktionov.lyricsfinder.domain.datasource.local.DataBase.Companion.DATABASE_VERSION
 
 
 /**

@@ -1,11 +1,12 @@
-package com.gmail.laktionov.lyricsfinder.search
+package com.gmail.laktionov.lyricsfinder.ui.search
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.gmail.laktionov.lyricsfinder.core.datasource.Repository
-import com.gmail.laktionov.lyricsfinder.core.isNotEmpty
-import com.gmail.laktionov.lyricsfinder.core.model.SongLyric
-import com.gmail.laktionov.lyricsfinder.core.prepareInput
+import com.gmail.laktionov.lyricsfinder.domain.DataResponse
+import com.gmail.laktionov.lyricsfinder.domain.ErrorResponse
+import com.gmail.laktionov.lyricsfinder.domain.datasource.Repository
+import com.gmail.laktionov.lyricsfinder.domain.isNotEmpty
+import com.gmail.laktionov.lyricsfinder.domain.prepareInput
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -29,19 +30,14 @@ class SearchViewModel(private val repository: Repository,
             // check input and execute request
             if (currentRequest.isNotEmpty()) {
                 loadingStateData.postValue(true)
-                val result = repository.findLyric(currentRequest)
-                proceedResponse(result)
+                when (val result = repository.findLyric(currentRequest)) {
+                    is DataResponse -> songLyricData.postValue(result.data.songText)
+                    is ErrorResponse -> songLyricData.postValue(result.errorMessage)
+                }
             } else {
                 /*TODO(notify user about empty input)  */
             }
             loadingStateData.postValue(false)
-        }
-    }
-
-    private fun proceedResponse(result: SongLyric) {
-        when {
-            result.errorMessage.isNotEmpty() -> songLyricData.postValue(result.errorMessage)
-            else -> songLyricData.postValue(result.singLyric)
         }
     }
 

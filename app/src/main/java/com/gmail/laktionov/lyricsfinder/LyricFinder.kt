@@ -2,8 +2,8 @@ package com.gmail.laktionov.lyricsfinder
 
 import android.app.Application
 import android.util.Log
-import com.gmail.laktionov.lyricsfinder.core.LyricRepository
-import com.gmail.laktionov.lyricsfinder.core.ViewModelFactory
+import com.gmail.laktionov.lyricsfinder.domain.datasource.LyricRepository
+import com.gmail.laktionov.lyricsfinder.ui.ViewModelFactory
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

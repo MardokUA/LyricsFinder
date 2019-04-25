@@ -1,4 +1,4 @@
-package com.gmail.laktionov.lyricsfinder.core.datasource.remote
+package com.gmail.laktionov.lyricsfinder.domain.datasource.remote
 
 import com.google.gson.annotations.SerializedName
 import retrofit2.Call
@@ -15,11 +15,13 @@ interface LyricApi {
                   @Path("title") songName: String): Call<LyricResponse>
 }
 
+
 /**
  * Represent main API request
  */
 data class LyricRequest(@SerializedName("artist") val artistName: String,
                         @SerializedName("title") val songName: String)
+
 
 /**
  * Represent main API response
@@ -31,7 +33,3 @@ data class LyricResponse(@SerializedName("statusCode") val statusCode: Int = 0,
     fun isNotEmpty() = songText.isNotEmpty()
     fun hasErrors() = statusCode != 0
 }
-
-sealed class BaseResponse<T : Any>
-data class DataResponse<T : Any>(val data: T) : BaseResponse<T>()
-data class ErrorResponse<T : Any>(val error: String) : BaseResponse<T>()
