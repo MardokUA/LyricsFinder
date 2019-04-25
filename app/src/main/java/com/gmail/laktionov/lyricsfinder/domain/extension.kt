@@ -30,7 +30,7 @@ fun FragmentActivity.addWithTransition(fragment: Fragment,
 inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {
     beginTransaction()
             .apply { action() }
-            .commit()
+            .commitAllowingStateLoss()
 }
 
 fun View.toVisible(isVisible: Boolean) {
