@@ -4,17 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 ext {
-    minSdk = 21
-    targetSdk = 28
-    versionCode = 2
-    versionName = "2.0"
-
-    supportLib= '28.0.0'
-    constreint = '1.1.3'
-    retrofit = '2.4.0'
-    retrofitInterceptor = '3.8.0'
-    archLifecycleVer = "1.1.1"
-    roomVer = '1.1.1'
+    minSdk = 23
+    targetSdk = 30
+    versionCode = 3
+    versionName = "2.1"
 }
 
 android {
@@ -29,14 +22,13 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", '"https://api.lyrics.ovh/v1/"'
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        vectorDrawables { useSupportLibrary = true }
     }
     buildTypes {
 
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -67,26 +59,32 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
 
     //Support
-    implementation "com.android.support.constraint:constraint-layout:$constreint"
+    def supportLib = '28.0.0'
+    def constraint = '2.0.4'
+    implementation "com.android.support.constraint:constraint-layout:$constraint"
     implementation "com.android.support:appcompat-v7:$supportLib"
     implementation "com.android.support:design:$supportLib"
 
     //Retrofit
+    def retrofit = '2.9.0'
+    def retrofitInterceptor = '5.0.0-alpha.2'
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofitInterceptor"
 
     //Arch components
+    def archLifecycleVer = "1.1.1"
     implementation "android.arch.lifecycle:extensions:$archLifecycleVer"
     implementation "android.arch.lifecycle:runtime:$archLifecycleVer"
-    kapt "android.arch.lifecycle:compiler:$archLifecycleVer"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$archLifecycleVer"
 
+    def roomVer = '1.1.1'
     implementation "android.arch.persistence.room:runtime:$roomVer"
     kapt "android.arch.persistence.room:compiler:$roomVer"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }

@@ -8,7 +8,8 @@ import kotlinx.coroutines.CoroutineScope
 
 class ViewModelFactory private constructor(
         private val repository: Repository,
-        private val scope: CoroutineScope) : ViewModelProvider.Factory {
+        private val scope: CoroutineScope) :
+        ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             with(modelClass) {
