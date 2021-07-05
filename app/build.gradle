@@ -3,35 +3,28 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-ext {
-    minSdk = 23
-    targetSdk = 30
-    versionCode = 3
-    versionName = "2.1"
-}
-
 android {
-    compileSdkVersion targetSdk
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "com.gmail.laktionov.lyricsfinder"
-        minSdkVersion minSdk
-        targetSdkVersion targetSdk
-        versionCode versionCode
-        versionName versionName
+
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 3
+        versionName "2.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", '"https://api.lyrics.ovh/v1/"'
         vectorDrawables { useSupportLibrary = true }
     }
-    buildTypes {
 
+    buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
         debug {
             minifyEnabled false
             shrinkResources false
@@ -45,8 +38,9 @@ android {
         }
     }
 
-    packagingOptions {
-        pickFirst("META-INF/atomicfu.kotlin_module")
+    compileOptions {
+        sourceCompatibility(JavaVersion.VERSION_1_8)
+        targetCompatibility(JavaVersion.VERSION_1_8)
     }
 }
 
@@ -59,11 +53,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
 
     //Support
-    def supportLib = '28.0.0'
-    def constraint = '2.0.4'
-    implementation "com.android.support.constraint:constraint-layout:$constraint"
-    implementation "com.android.support:appcompat-v7:$supportLib"
-    implementation "com.android.support:design:$supportLib"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "androidx.fragment:fragment-ktx:1.3.5"
 
     //Retrofit
     def retrofit = '2.9.0'
@@ -74,14 +66,19 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofitInterceptor"
 
     //Arch components
-    def archLifecycleVer = "1.1.1"
-    implementation "android.arch.lifecycle:extensions:$archLifecycleVer"
-    implementation "android.arch.lifecycle:runtime:$archLifecycleVer"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$archLifecycleVer"
+    def lifecycleVer = "2.4.0-alpha02"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVer"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVer"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVer"
 
-    def roomVer = '1.1.1'
-    implementation "android.arch.persistence.room:runtime:$roomVer"
-    kapt "android.arch.persistence.room:compiler:$roomVer"
+    def roomVer = '2.3.0'
+    implementation "androidx.room:room-runtime:$roomVer"
+    kapt "androidx.room:room-compiler:$roomVer"
+
+    def daggerVer = "2.36"
+    implementation "com.google.dagger:dagger:$daggerVer"
+    kapt "com.google.dagger:dagger-compiler:$daggerVer"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVer"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
