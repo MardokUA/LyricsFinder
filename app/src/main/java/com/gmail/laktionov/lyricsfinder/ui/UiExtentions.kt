@@ -1,4 +1,4 @@
-package com.gmail.laktionov.lyricsfinder.domain
+package com.gmail.laktionov.lyricsfinder.ui
 
 import android.content.Context
 import android.view.View
@@ -18,9 +18,11 @@ fun FragmentActivity.hideKeyboard() {
     }
 }
 
-fun FragmentActivity.addWithTransition(fragment: Fragment,
-                                       @IdRes frameId: Int,
-                                       transitionMask: Int = FragmentTransaction.TRANSIT_FRAGMENT_OPEN) {
+fun FragmentActivity.addWithTransition(
+    fragment: Fragment,
+    @IdRes frameId: Int,
+    transitionMask: Int = FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+) {
     supportFragmentManager.transact {
         setTransition(transitionMask)
         add(frameId, fragment)
@@ -29,21 +31,10 @@ fun FragmentActivity.addWithTransition(fragment: Fragment,
 
 inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {
     beginTransaction()
-            .apply { action() }
-            .commitAllowingStateLoss()
+        .apply { action() }
+        .commitAllowingStateLoss()
 }
 
 fun View.toVisible(isVisible: Boolean) {
     this.visibility = if (isVisible) View.VISIBLE else View.GONE
-}
-
-fun Pair<String, String>.isNotEmpty(): Boolean {
-    return first.isNotBlank() && second.isNotBlank()
-}
-
-fun String.prepareInput(): String {
-    return apply {
-        this.trimStart()
-        this.trimEnd()
-    }
 }
