@@ -1,6 +1,6 @@
-package com.gmail.laktionov.lyricsfinder.domain.datasource
+package com.gmail.laktionov.lyricsfinder.domain
 
-import com.gmail.laktionov.lyricsfinder.domain.SongLyric
+import com.gmail.laktionov.lyricsfinder.domain.model.SongLyric
 
 interface LocalSource {
 

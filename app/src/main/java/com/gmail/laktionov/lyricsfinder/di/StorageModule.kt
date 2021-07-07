@@ -3,7 +3,7 @@ package com.gmail.laktionov.lyricsfinder.di
 import android.content.Context
 import android.content.res.Resources
 import androidx.room.Room
-import com.gmail.laktionov.lyricsfinder.domain.datasource.local.DataBase
+import com.gmail.laktionov.lyricsfinder.data.local.DataBase
 import dagger.Module
 import dagger.Provides
 
