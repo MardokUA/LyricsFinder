@@ -1,13 +1,13 @@
 package com.gmail.laktionov.lyricsfinder.domain
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 
 
 fun FragmentActivity.hideKeyboard() {
@@ -20,7 +20,7 @@ fun FragmentActivity.hideKeyboard() {
 
 fun FragmentActivity.addWithTransition(fragment: Fragment,
                                        @IdRes frameId: Int,
-                                       transitionMask: Int = FragmentTransaction.TRANSIT_ENTER_MASK) {
+                                       transitionMask: Int = FragmentTransaction.TRANSIT_FRAGMENT_OPEN) {
     supportFragmentManager.transact {
         setTransition(transitionMask)
         add(frameId, fragment)

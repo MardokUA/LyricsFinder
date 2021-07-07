@@ -4,9 +4,9 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.gmail.laktionov.lyricsfinder.R
 import com.gmail.laktionov.lyricsfinder.domain.addWithTransition
 import com.gmail.laktionov.lyricsfinder.domain.toVisible

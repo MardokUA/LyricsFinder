@@ -1,6 +1,10 @@
 package com.gmail.laktionov.lyricsfinder.domain.datasource.remote
 
-import com.gmail.laktionov.lyricsfinder.domain.*
+import com.gmail.laktionov.lyricsfinder.domain.BaseResponse
+import com.gmail.laktionov.lyricsfinder.domain.BaseResponse.DataResponse
+import com.gmail.laktionov.lyricsfinder.domain.BaseResponse.ErrorResponse
+import com.gmail.laktionov.lyricsfinder.domain.SongLyric
+import com.gmail.laktionov.lyricsfinder.domain.Type
 import com.gmail.laktionov.lyricsfinder.domain.datasource.RemoteSource
 import retrofit2.Call
 import retrofit2.Response

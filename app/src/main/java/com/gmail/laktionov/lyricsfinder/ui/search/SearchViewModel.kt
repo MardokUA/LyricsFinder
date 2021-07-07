@@ -1,17 +1,17 @@
 package com.gmail.laktionov.lyricsfinder.ui.search
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import com.gmail.laktionov.lyricsfinder.domain.DataResponse
-import com.gmail.laktionov.lyricsfinder.domain.ErrorResponse
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gmail.laktionov.lyricsfinder.domain.BaseResponse.DataResponse
+import com.gmail.laktionov.lyricsfinder.domain.BaseResponse.ErrorResponse
 import com.gmail.laktionov.lyricsfinder.domain.datasource.Repository
 import com.gmail.laktionov.lyricsfinder.domain.isNotEmpty
 import com.gmail.laktionov.lyricsfinder.domain.prepareInput
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val repository: Repository,
-                      private val scope: CoroutineScope) : ViewModel() {
+class SearchViewModel(private val repository: Repository) : ViewModel() {
 
     private val songLyricData: MutableLiveData<String> = MutableLiveData()
     private val loadingStateData: MutableLiveData<Boolean> = MutableLiveData()
@@ -24,7 +24,7 @@ class SearchViewModel(private val repository: Repository,
     }
 
     private fun proceedRequestAsync(artistName: String, songName: String) {
-        scope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val currentRequest = prepareRequest(artistName, songName)
 
             // check input and execute request
@@ -35,7 +35,7 @@ class SearchViewModel(private val repository: Repository,
                     is ErrorResponse -> songLyricData.postValue(result.errorMessage)
                 }
             } else {
-                /*TODO(notify user about empty input)  */
+                /* TODO(notify user about empty input) */
             }
             loadingStateData.postValue(false)
         }
@@ -45,6 +45,6 @@ class SearchViewModel(private val repository: Repository,
      * Trims user input to prevent empty requests
      */
     private fun prepareRequest(artistName: String, songName: String) =
-            Pair(artistName.prepareInput(), songName.prepareInput())
+        Pair(artistName.prepareInput(), songName.prepareInput())
 
 }

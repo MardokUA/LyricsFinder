@@ -2,7 +2,11 @@ package com.gmail.laktionov.lyricsfinder.domain.datasource
 
 import android.content.res.Resources
 import com.gmail.laktionov.lyricsfinder.R
-import com.gmail.laktionov.lyricsfinder.domain.*
+import com.gmail.laktionov.lyricsfinder.domain.BaseResponse
+import com.gmail.laktionov.lyricsfinder.domain.BaseResponse.DataResponse
+import com.gmail.laktionov.lyricsfinder.domain.BaseResponse.ErrorResponse
+import com.gmail.laktionov.lyricsfinder.domain.SongLyric
+import com.gmail.laktionov.lyricsfinder.domain.Type
 
 class LyricRepository(private val localSource: LocalSource,
                       private val remoteSource: RemoteSource,
