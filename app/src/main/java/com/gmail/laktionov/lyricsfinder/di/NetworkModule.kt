@@ -1,7 +1,7 @@
 package com.gmail.laktionov.lyricsfinder.di
 
 import com.gmail.laktionov.lyricsfinder.BuildConfig
-import com.gmail.laktionov.lyricsfinder.domain.datasource.remote.LyricApi
+import com.gmail.laktionov.lyricsfinder.data.remote.LyricApi
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

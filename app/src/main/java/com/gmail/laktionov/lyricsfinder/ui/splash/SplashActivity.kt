@@ -8,9 +8,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.gmail.laktionov.lyricsfinder.R
-import com.gmail.laktionov.lyricsfinder.domain.addWithTransition
-import com.gmail.laktionov.lyricsfinder.domain.toVisible
+import com.gmail.laktionov.lyricsfinder.ui.addWithTransition
 import com.gmail.laktionov.lyricsfinder.ui.search.SearchFragment
+import com.gmail.laktionov.lyricsfinder.ui.toVisible
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -40,14 +40,5 @@ class SplashActivity : AppCompatActivity() {
                 SearchFragment.createInstance(),
                 R.id.app_fragment_container,
                 FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-    }
-
-    @Deprecated("activity was switched to fragment", level = DeprecationLevel.ERROR)
-    private fun startSearch() {
-//        val searchIntent = Intent(this@SplashActivity, SearchActivity::class.java).also {
-//            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//        }
-//        startActivity(searchIntent)
-//        finish()
     }
 }
