@@ -1,7 +1,7 @@
 package com.gmail.laktionov.lyricsfinder.di
 
-import com.gmail.laktionov.lyricsfinder.di.data.remote.MouritsDataSource
-import com.gmail.laktionov.lyricsfinder.di.data.remote.mapper.MouritsResponseMapper
+import com.gmail.laktionov.lyricsfinder.di.data.remote.GeniusDataSource
+import com.gmail.laktionov.lyricsfinder.di.data.remote.mapper.GeniusResponseMapper
 import com.gmail.laktionov.lyricsfinder.domain.RemoteSource
 import dagger.Module
 import dagger.Provides
@@ -11,8 +11,8 @@ class NetworkModule {
 
     @Provides
     //TODO: add api into constructor
-    fun providesRemoteSource(mapper: MouritsResponseMapper): RemoteSource =
-        MouritsDataSource(mapper = mapper)
+    fun providesRemoteSource(mapper: GeniusResponseMapper): RemoteSource =
+        GeniusDataSource(mapper = mapper)
 
 //    @Provides
     // TODO: add api realization and uncoment this method
@@ -22,5 +22,5 @@ class NetworkModule {
 //    ): MouritsLyricsApi
 
     @Provides
-    fun provideResponseMapper(): MouritsResponseMapper = MouritsResponseMapper()
+    fun provideResponseMapper(): GeniusResponseMapper = GeniusResponseMapper()
 }
