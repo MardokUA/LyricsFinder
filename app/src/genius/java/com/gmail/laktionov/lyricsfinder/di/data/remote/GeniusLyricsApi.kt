@@ -1,8 +1,8 @@
 package com.gmail.laktionov.lyricsfinder.di.data.remote
 
-import com.gmail.laktionov.lyricsfinder.di.data.remote.model.AllResponse
 import com.gmail.laktionov.lyricsfinder.di.data.remote.model.ArtistSongsResponse
 import com.gmail.laktionov.lyricsfinder.di.data.remote.model.SongResponse
+import com.gmail.laktionov.lyricsfinder.di.data.remote.model.all.AllResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
