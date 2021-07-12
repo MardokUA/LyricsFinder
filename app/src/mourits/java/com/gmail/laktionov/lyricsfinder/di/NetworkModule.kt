@@ -1,32 +1,26 @@
 package com.gmail.laktionov.lyricsfinder.di
 
-import com.gmail.laktionov.lyricsfinder.BuildConfig
-import com.gmail.laktionov.lyricsfinder.data.remote.ovh.LyricOvhApi
-import com.gmail.laktionov.lyricsfinder.data.remote.ovh.OvhDataSource
-import com.gmail.laktionov.lyricsfinder.data.remote.ovh.mapper.OvhResponseMapper
+import com.gmail.laktionov.lyricsfinder.data.remote.mourits.MouritsDataSource
+import com.gmail.laktionov.lyricsfinder.data.remote.mourits.mapper.MouritsResponseMapper
 import com.gmail.laktionov.lyricsfinder.domain.RemoteSource
+import dagger.Module
 import dagger.Provides
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
+@Module
 class NetworkModule {
 
     @Provides
-    fun providesRemoteSource(api: LyricOvhApi, mapper: OvhResponseMapper): RemoteSource =
-        OvhDataSource(serverApi = api, mapper = mapper)
+    //TODO: add api into constructor
+    fun providesRemoteSource(mapper: MouritsResponseMapper): RemoteSource =
+        MouritsDataSource(mapper = mapper)
+
+//    @Provides
+    // TODO: add api realization and uncoment this method
+//    fun provideApi(
+//        factory: GsonConverterFactory,
+//        okHttpClient: OkHttpClient
+//    ): MouritsLyricsApi
 
     @Provides
-    fun provideApi(
-        factory: GsonConverterFactory,
-        okHttpClient: OkHttpClient
-    ): LyricOvhApi = Retrofit.Builder()
-        .addConverterFactory(factory)
-        .client(okHttpClient)
-        .baseUrl(BuildConfig.BASE_URL)
-        .build()
-        .create(LyricOvhApi::class.java)
-
-    @Provides
-    fun provideResponseMapper(): OvhResponseMapper = OvhResponseMapper()
+    fun provideResponseMapper(): MouritsResponseMapper = MouritsResponseMapper()
 }
