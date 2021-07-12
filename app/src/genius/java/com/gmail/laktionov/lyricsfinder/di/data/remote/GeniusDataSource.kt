@@ -5,7 +5,10 @@ import com.gmail.laktionov.lyricsfinder.di.data.remote.mapper.GeniusResponseMapp
 import com.gmail.laktionov.lyricsfinder.domain.RemoteSource
 import com.gmail.laktionov.lyricsfinder.domain.model.SongLyric
 
-class GeniusDataSource(private val mapper: GeniusResponseMapper) : RemoteSource {
+class GeniusDataSource(
+    private val api: GeniusLyricsApi,
+    private val mapper: GeniusResponseMapper
+) : RemoteSource {
 
     override fun findLyricRemote(artistName: String, songName: String): BaseResponse<SongLyric> {
         TODO("Not yet implemented")
