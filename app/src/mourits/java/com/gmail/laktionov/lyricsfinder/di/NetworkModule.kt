@@ -1,7 +1,7 @@
 package com.gmail.laktionov.lyricsfinder.di
 
-import com.gmail.laktionov.lyricsfinder.data.remote.mourits.MouritsDataSource
-import com.gmail.laktionov.lyricsfinder.data.remote.mourits.mapper.MouritsResponseMapper
+import com.gmail.laktionov.lyricsfinder.di.data.remote.MouritsDataSource
+import com.gmail.laktionov.lyricsfinder.di.data.remote.mapper.MouritsResponseMapper
 import com.gmail.laktionov.lyricsfinder.domain.RemoteSource
 import dagger.Module
 import dagger.Provides
