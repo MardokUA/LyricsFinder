@@ -15,7 +15,6 @@ android {
         versionName "2.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "BASE_URL", '"https://api.lyrics.ovh/v1/"'
         vectorDrawables { useSupportLibrary = true }
     }
 
@@ -35,6 +34,21 @@ android {
                     outputFileName = "LyricsFined_v_${variant.versionName}.apk"
                 }
             }
+        }
+    }
+    flavorDimensions "backend"
+    productFlavors {
+        ovh {
+            dimension "backend"
+            applicationIdSuffix ".ovh"
+            versionNameSuffix "-ovh"
+            buildConfigField "String", "BASE_URL", '"https://api.lyrics.ovh/v1/"'
+        }
+        mourits {
+            dimension "backend"
+            applicationIdSuffix ".mourits"
+            versionNameSuffix "-mourits"
+            buildConfigField "String", "BASE_URL", '"https://mourits-lyrics.p.rapidapi.com/"'
         }
     }
 
