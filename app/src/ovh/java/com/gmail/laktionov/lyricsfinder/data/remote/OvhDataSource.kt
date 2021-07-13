@@ -1,6 +1,5 @@
 package com.gmail.laktionov.lyricsfinder.data.remote
 
-import com.gmail.laktionov.lyricsfinder.core.HttpErrorHandlerDataSource
 import com.gmail.laktionov.lyricsfinder.data.remote.mapper.OvhResponseMapper
 import com.gmail.laktionov.lyricsfinder.domain.RemoteSource
 import com.gmail.laktionov.lyricsfinder.domain.model.ContentItem
@@ -9,7 +8,7 @@ import com.gmail.laktionov.lyricsfinder.domain.model.SongLyric
 class OvhDataSource(
     private val serverApi: LyricOvhApi,
     private val mapper: OvhResponseMapper
-) : HttpErrorHandlerDataSource(), RemoteSource {
+) : RemoteSource {
 
     override suspend fun findContent(name: String): List<ContentItem> {
         TODO("Not yet implemented")
