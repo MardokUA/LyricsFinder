@@ -1,43 +1,36 @@
 package com.gmail.laktionov.lyricsfinder.ui.search
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gmail.laktionov.lyricsfinder.core.BaseResponse.DataResponse
-import com.gmail.laktionov.lyricsfinder.core.BaseResponse.ErrorResponse
 import com.gmail.laktionov.lyricsfinder.core.isNotEmpty
 import com.gmail.laktionov.lyricsfinder.core.prepareInput
-import com.gmail.laktionov.lyricsfinder.domain.Repository
+import com.gmail.laktionov.lyricsfinder.domain.model.SongLyric
+import com.gmail.laktionov.lyricsfinder.domain.song.SongRepository
+import com.gmail.laktionov.lyricsfinder.ui.BaseViewModel
+import com.gmail.laktionov.lyricsfinder.ui.UIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val repository: Repository) : ViewModel() {
+class SearchViewModel(private val repository: SongRepository) : BaseViewModel() {
 
-    private val songLyricData: MutableLiveData<String> = MutableLiveData()
-    private val loadingStateData: MutableLiveData<Boolean> = MutableLiveData()
+    private val songLyricState: MutableLiveData<UIState<SongLyric>> = MutableLiveData()
 
-    fun observeSongData() = songLyricData
-    fun observeLoadingState() = loadingStateData
+    fun observeLyricState() = songLyricState
 
     fun searchLyric(artistName: String, songName: String) {
         proceedRequestAsync(artistName, songName)
     }
 
     private fun proceedRequestAsync(artistName: String, songName: String) {
+        songLyricState.value = UIState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             val currentRequest = prepareRequest(artistName, songName)
-
-            // check input and execute request
             if (currentRequest.isNotEmpty()) {
-                loadingStateData.postValue(true)
-                when (val result = repository.findLyric(currentRequest)) {
-                    is DataResponse -> songLyricData.postValue(result.data.songText)
-                    is ErrorResponse -> songLyricData.postValue(result.errorMessage)
-                }
+                val state = repository.findLyric(currentRequest).toUiState()
+                songLyricState.postValue(state)
             } else {
-                /* TODO(notify user about empty input) */
+                songLyricState.postValue(UIState.Data(SongLyric()))
             }
-            loadingStateData.postValue(false)
         }
     }
 

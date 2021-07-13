@@ -4,38 +4,27 @@ import com.gmail.laktionov.lyricsfinder.BuildConfig
 import com.gmail.laktionov.lyricsfinder.data.remote.LyricOvhApi
 import com.gmail.laktionov.lyricsfinder.data.remote.OvhDataSource
 import com.gmail.laktionov.lyricsfinder.data.remote.mapper.OvhResponseMapper
+import com.gmail.laktionov.lyricsfinder.di.CompositeNetworkModule.LoggingInterceptor
 import com.gmail.laktionov.lyricsfinder.domain.RemoteSource
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-object NetworkModule {
-
-    @Provides
-    fun provideConverterFactory(): GsonConverterFactory =
-        GsonConverterFactory.create(
-            GsonBuilder()
-                .apply { this.serializeNulls() }
-                .create()
-        )
-
-    @Provides
-    fun provideOkHttpClient(): OkHttpClient =
-        OkHttpClient.Builder().addInterceptor(
-            HttpLoggingInterceptor()
-                .also {
-                    it.level = HttpLoggingInterceptor.Level.BODY
-                }
-        ).build()
+object FeatureNetworkModule {
 
     @Provides
     fun providesRemoteSource(api: LyricOvhApi, mapper: OvhResponseMapper): RemoteSource =
         OvhDataSource(serverApi = api, mapper = mapper)
+
+    @Provides
+    fun provideOkHttpClient(@LoggingInterceptor loggingInterceptor: Interceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
 
     @Provides
     fun provideApi(

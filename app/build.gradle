@@ -44,11 +44,11 @@ android {
             versionNameSuffix "-ovh"
             buildConfigField "String", "BASE_URL", '"https://api.lyrics.ovh/v1/"'
         }
-        mourits {
+        genius {
             dimension "backend"
-            applicationIdSuffix ".mourits"
-            versionNameSuffix "-mourits"
-            buildConfigField "String", "BASE_URL", '"https://mourits-lyrics.p.rapidapi.com/"'
+            applicationIdSuffix ".genius"
+            versionNameSuffix "-genius"
+            buildConfigField "String", "BASE_URL", '"https://genius.p.rapidapi.com/"'
         }
     }
 

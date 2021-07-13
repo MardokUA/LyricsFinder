@@ -13,7 +13,12 @@ interface AppComponent {
 }
 
 
-@Module(includes = [NetworkModule::class, DataModule::class, StorageModule::class])
+@Module(
+    includes = [
+        CompositeNetworkModule::class,
+        DataModule::class,
+        StorageModule::class]
+)
 class AppModule(private val context: Context) {
 
     @Provides
