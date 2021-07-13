@@ -2,12 +2,12 @@ package com.gmail.laktionov.lyricsfinder.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.gmail.laktionov.lyricsfinder.domain.Repository
+import com.gmail.laktionov.lyricsfinder.domain.song.SongRepository
 import com.gmail.laktionov.lyricsfinder.ui.search.SearchViewModel
 import javax.inject.Inject
 
 class ViewModelFactory @Inject constructor(
-    private val repository: Repository
+    private val repository: SongRepository
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

@@ -3,12 +3,14 @@ package com.gmail.laktionov.lyricsfinder.ui.search
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.gmail.laktionov.lyricsfinder.R
 import com.gmail.laktionov.lyricsfinder.appComponent
+import com.gmail.laktionov.lyricsfinder.domain.model.SongLyric
+import com.gmail.laktionov.lyricsfinder.ui.UIState
 import com.gmail.laktionov.lyricsfinder.ui.ViewModelFactory
-import com.gmail.laktionov.lyricsfinder.ui.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_search.*
 import javax.inject.Inject
 
@@ -26,11 +28,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel.observeSongData().observe(this,
-            { data -> data?.let { proceedResponse(it) } })
-        viewModel.observeLoadingState().observe(this,
-            { state -> state?.let { updateLoadingState(it) } })
+        viewModel.observeLyricState().observe(this,
+            { data -> data?.let { applyState(it) } })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,17 +42,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-    private fun updateLoadingState(isUpdate: Boolean) {
-        if (isUpdate) {
-            searchSongTextTv.text = null
-            activity?.hideKeyboard()
+    private fun applyState(state: UIState<SongLyric>) {
+        when (state) {
+            UIState.Loading -> searchProgress.visibility = View.VISIBLE
+            is UIState.Data -> {
+                searchProgress.visibility = View.GONE
+                searchSongTextTv.text = state.data.songText
+            }
+            is UIState.Error -> {
+                searchProgress.visibility = View.GONE
+                Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+            }
         }
-        searchProgress.visibility = if (isUpdate) View.VISIBLE else View.GONE
-        searchStartBtn.isEnabled = !isUpdate
-    }
-
-    private fun proceedResponse(data: String) {
-        searchSongTextTv.text = data
     }
 
     companion object {

@@ -7,5 +7,4 @@ interface LocalSource {
     fun getLyric(artistName: String, songName: String): SongLyric
 
     fun storeData(songLyric: SongLyric)
-
 }
