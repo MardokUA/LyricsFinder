@@ -1,13 +1,13 @@
-package com.gmail.laktionov.lyricsfinder.ui
+package com.gmail.laktionov.lyricsfinder.core
 
 import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import com.gmail.laktionov.lyricsfinder.R
-import com.gmail.laktionov.lyricsfinder.core.BaseResponse
 import com.gmail.laktionov.lyricsfinder.core.BaseResponse.DataResponse
 import com.gmail.laktionov.lyricsfinder.core.BaseResponse.ErrorResponse
 import com.gmail.laktionov.lyricsfinder.core.Failure.General.NetworkException
 import com.gmail.laktionov.lyricsfinder.core.Failure.General.ServerException
+import com.gmail.laktionov.lyricsfinder.ui.UIState
 import javax.inject.Inject
 
 abstract class BaseViewModel : ViewModel() {

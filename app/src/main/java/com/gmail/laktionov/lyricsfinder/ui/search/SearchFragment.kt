@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.gmail.laktionov.lyricsfinder.R
 import com.gmail.laktionov.lyricsfinder.appComponent
+import com.gmail.laktionov.lyricsfinder.core.ViewModelFactory
 import com.gmail.laktionov.lyricsfinder.domain.model.SongLyric
 import com.gmail.laktionov.lyricsfinder.ui.UIState
-import com.gmail.laktionov.lyricsfinder.ui.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_search.*
 import javax.inject.Inject
 

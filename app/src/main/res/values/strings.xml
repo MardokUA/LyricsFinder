@@ -7,6 +7,8 @@
     <string name="search">Search</string>
     <string name="label">Lyric Finder</string>
 
+    <string name="menu_search">Search</string>
+    <string name="menu_history">History</string>
     <!--Errors -->
     <string name="error_not_found">Found nothing</string>
     <string name="error_connection">Connection problems\nTry again later</string>

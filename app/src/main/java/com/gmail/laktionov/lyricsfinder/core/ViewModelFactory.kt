@@ -1,4 +1,4 @@
-package com.gmail.laktionov.lyricsfinder.ui
+package com.gmail.laktionov.lyricsfinder.core
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

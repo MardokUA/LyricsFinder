@@ -2,11 +2,11 @@ package com.gmail.laktionov.lyricsfinder.ui.search
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.gmail.laktionov.lyricsfinder.core.BaseViewModel
 import com.gmail.laktionov.lyricsfinder.core.isNotEmpty
 import com.gmail.laktionov.lyricsfinder.core.prepareInput
 import com.gmail.laktionov.lyricsfinder.domain.model.SongLyric
 import com.gmail.laktionov.lyricsfinder.domain.song.SongRepository
-import com.gmail.laktionov.lyricsfinder.ui.BaseViewModel
 import com.gmail.laktionov.lyricsfinder.ui.UIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
